@@ -65,7 +65,10 @@ public class Conta {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-
 	
-	
+	@Override
+	public String toString() {
+		return "Conta [numeroAgencia" + numeroAgencia + ", tipoConta=" + tipoConta + ", numeroConta=" + numeroConta
+				+ ", saldo=" + saldo + ", dataAbertura=" + dataAbertura + ", status=" + status + "]";
+	}	
 }
