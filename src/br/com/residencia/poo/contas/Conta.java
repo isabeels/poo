@@ -1,5 +1,6 @@
 package br.com.residencia.poo.contas;
 
+//import java.text.NumberFormat;
 import java.time.LocalDate;
 
 public class Conta {
@@ -24,8 +25,7 @@ public class Conta {
 		this.status = status;
 		this.senha = senha;
 	}
-
-
+	
 	public Integer getIdConta() {
 		return idConta;
 	}
@@ -68,7 +68,11 @@ public class Conta {
 	
 	@Override
 	public String toString() {
-		return "Conta [numeroAgencia" + numeroAgencia + ", tipoConta=" + tipoConta + ", numeroConta=" + numeroConta
-				+ ", saldo=" + saldo + ", dataAbertura=" + dataAbertura + ", status=" + status + "]";
+		return "Número da agência: " + numeroAgencia +"\n"+ 
+			   "Tipo da conta: " + tipoConta +"\n"+ 
+			   "Número da conta: " + numeroConta + "\n"+
+			   "Saldo da conta: "+ saldo + "\n"+
+			   "Data de abertura: " + dataAbertura + "\n"+
+			   "Status da conta: " + status;
 	}	
 }
