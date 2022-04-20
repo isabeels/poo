@@ -1,6 +1,6 @@
 package br.com.residencia.poo.contas;
 
-//import java.text.NumberFormat;
+import java.text.NumberFormat;
 import java.time.LocalDate;
 
 public class Conta {
@@ -8,11 +8,11 @@ public class Conta {
 	private String numeroAgencia;
 	private String tipoConta;
 	private String numeroConta;
-	private Double saldo;
+	private double saldo;
+	private String saldoFormatado ;
 	private LocalDate dataAbertura;
 	private Boolean status;
 	private String senha;
-	
 	public Conta(Integer idConta, String numeroAgencia, String tipoConta, String numeroConta, Double saldo,
 			LocalDate dataAbertura, Boolean status, String senha) {
 		
@@ -20,7 +20,8 @@ public class Conta {
 		this.numeroAgencia = numeroAgencia;
 		this.tipoConta = tipoConta;
 		this.numeroConta = numeroConta;
-		this.saldo = saldo;
+		NumberFormat nf2 = NumberFormat.getCurrencyInstance();
+		this.saldoFormatado = nf2.format(saldo);
 		this.dataAbertura = dataAbertura;
 		this.status = status;
 		this.senha = senha;
@@ -38,9 +39,14 @@ public class Conta {
 	public String getNumeroConta() {
 		return numeroConta;
 	}
-	public Double getSaldo() {
+	public double getSaldo() {
 		return saldo;
 	}
+	
+	public String getSaldoFormatado() {
+		return saldoFormatado;
+	}
+
 	public LocalDate getDataAbertura() {
 		return dataAbertura;
 	}
@@ -71,7 +77,7 @@ public class Conta {
 		return "Número da agência: " + numeroAgencia +"\n"+ 
 			   "Tipo da conta: " + tipoConta +"\n"+ 
 			   "Número da conta: " + numeroConta + "\n"+
-			   "Saldo da conta: "+ saldo + "\n"+
+			   "Saldo da conta: "+ saldoFormatado + "\n"+
 			   "Data de abertura: " + dataAbertura + "\n"+
 			   "Status da conta: " + status;
 	}	
