@@ -11,4 +11,5 @@ public class Conta {
 	LocalDate dataAbertura;
 	Boolean status;
 	String senha;
+	String qualquercoisa;
 }
