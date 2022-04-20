@@ -11,5 +11,8 @@ public class Pessoa {
 	String endereco;
 	String email;
 	Date dataNascimento;
+	String tipoPessoa;
+	
+	
 
 }

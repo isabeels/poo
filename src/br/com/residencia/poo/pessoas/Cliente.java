@@ -2,6 +2,6 @@ package br.com.residencia.poo.pessoas;
 
 
 public class Cliente extends Pessoa {
-	Integer id;
+	Integer idCliente;
 	Integer idGerente;
 }
