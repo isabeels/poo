@@ -9,40 +9,44 @@ public class Conta {
 	private String tipoConta;
 	private String numeroConta;
 	private double saldo;
-	private String saldoFormatado ;
+	private String saldoFormatado;
 	private LocalDate dataAbertura;
 	private Boolean status;
 	private String senha;
+
 	public Conta(Integer idConta, String numeroAgencia, String tipoConta, String numeroConta, Double saldo,
-			LocalDate dataAbertura, Boolean status, String senha) {
-		
+			Boolean status, String senha) {
 		this.idConta = idConta;
 		this.numeroAgencia = numeroAgencia;
 		this.tipoConta = tipoConta;
 		this.numeroConta = numeroConta;
 		NumberFormat nf2 = NumberFormat.getCurrencyInstance();
 		this.saldoFormatado = nf2.format(saldo);
-		this.dataAbertura = dataAbertura;
 		this.status = status;
 		this.senha = senha;
+		this.dataAbertura = LocalDate.now();
 	}
-	
+
 	public Integer getIdConta() {
 		return idConta;
 	}
+
 	public String getNumeroAgencia() {
 		return numeroAgencia;
 	}
+
 	public String getTipoConta() {
 		return tipoConta;
 	}
+
 	public String getNumeroConta() {
 		return numeroConta;
 	}
+
 	public double getSaldo() {
 		return saldo;
 	}
-	
+
 	public String getSaldoFormatado() {
 		return saldoFormatado;
 	}
@@ -50,35 +54,39 @@ public class Conta {
 	public LocalDate getDataAbertura() {
 		return dataAbertura;
 	}
+
 	public Boolean getStatus() {
 		return status;
 	}
+
 	public String getSenha() {
 		return senha;
 	}
+
 	public void setNumeroAgencia(String numeroAgencia) {
 		this.numeroAgencia = numeroAgencia;
 	}
+
 	public void setTipoConta(String tipoConta) {
 		this.tipoConta = tipoConta;
 	}
+
 	public void setNumeroConta(String numeroConta) {
 		this.numeroConta = numeroConta;
 	}
+
 	public void setStatus(Boolean status) {
 		this.status = status;
 	}
+
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "Número da agência: " + numeroAgencia +"\n"+ 
-			   "Tipo da conta: " + tipoConta +"\n"+ 
-			   "Número da conta: " + numeroConta + "\n"+
-			   "Saldo da conta: "+ saldoFormatado + "\n"+
-			   "Data de abertura: " + dataAbertura + "\n"+
-			   "Status da conta: " + status;
-	}	
+		return "Número da agência: " + numeroAgencia + "\n" + "Tipo da conta: " + tipoConta + "\n" + "Número da conta: "
+				+ numeroConta + "\n" + "Saldo da conta: " + saldoFormatado + "\n" + "Data de abertura: " + dataAbertura
+				+ "\n" + "Status da conta: " + status;
+	}
 }

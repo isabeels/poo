@@ -6,8 +6,5 @@ public class Funcionario extends Pessoa {
 	String senha;
 	Double salario;
 	String cargo;
-	
-	
-	}
 
-
+}

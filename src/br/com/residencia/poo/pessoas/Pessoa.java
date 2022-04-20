@@ -12,7 +12,5 @@ public class Pessoa {
 	String email;
 	Date dataNascimento;
 	String tipoPessoa;
-	
-	
 
 }
