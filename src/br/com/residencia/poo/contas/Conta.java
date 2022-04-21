@@ -8,20 +8,20 @@ public class Conta {
 	private String numeroAgencia;
 	private String tipoConta;
 	private String numeroConta;
-	private double saldo;
+	private Double saldo;
 	private String saldoFormatado;
 	private LocalDate dataAbertura;
 	private Boolean status;
 	private String senha;
-
+	NumberFormat nf = NumberFormat.getCurrencyInstance();
+	
 	public Conta(Integer idConta, String numeroAgencia, String tipoConta, String numeroConta, Double saldo,
 			Boolean status, String senha) {
 		this.idConta = idConta;
 		this.numeroAgencia = numeroAgencia;
 		this.tipoConta = tipoConta;
 		this.numeroConta = numeroConta;
-		NumberFormat nf2 = NumberFormat.getCurrencyInstance();
-		this.saldoFormatado = nf2.format(saldo);
+		this.saldoFormatado = nf.format(saldo);
 		this.status = status;
 		this.senha = senha;
 		this.dataAbertura = LocalDate.now();
@@ -87,6 +87,6 @@ public class Conta {
 	public String toString() {
 		return "Número da agência: " + numeroAgencia + "\n" + "Tipo da conta: " + tipoConta + "\n" + "Número da conta: "
 				+ numeroConta + "\n" + "Saldo da conta: " + saldoFormatado + "\n" + "Data de abertura: " + dataAbertura
-				+ "\n" + "Status da conta: " + status;
+				+ "\n" + "Status da conta: " + status + "\n";
 	}
 }
