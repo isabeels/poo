@@ -13,9 +13,7 @@ public class Principal {
 		Conta conta2 = new Conta(2, "1673", "Conta Corrente", "51219-8", 1562.00, true, "321");
 		System.out.println(conta2.toString());
 
-//		Gerente g1 = new Gerente(10000.00);
-//		
-//		System.out.println(g1.getBonificacao());
+
 	}
 
 }
