@@ -10,6 +10,7 @@ import br.com.residencia.poo.pessoas.Cliente;
 import br.com.residencia.poo.pessoas.Diretor;
 import br.com.residencia.poo.pessoas.Funcionario;
 import br.com.residencia.poo.pessoas.Gerente;
+import br.com.residencia.poo.pessoas.Presidente;
 
 public class Principal {
 
@@ -17,8 +18,10 @@ public class Principal {
 		/* Lista contas */
 		List<Conta> contas;
 		contas = new ArrayList<Conta>();
-		/*  */
 		
+		/* Lista diretor */
+		List<Diretor> diretores;
+		diretores = new ArrayList<Diretor>();
 		
 		/* Instanciação de contas */
 		Conta conta1 = new Conta(1, "3761", "Conta Corrente", "89121-5", 0.15, true, "123");
@@ -66,7 +69,11 @@ public class Principal {
 		Diretor diretor = new Diretor("Vinicin", "Não supomos genero", "Casado", "123999666-6", "22-1313131313", "Rua do cruzeiro",
 				"vinivspdasgata@gmail.com", data , "diretor", 1001, "palhaço1", "fazumapalhaçadinha",
 				17.99, "Diretor geral das palhaçadinha", 1000, agencias);
+		diretores.add(diretor);
 		
+		Presidente Isabel = new Presidente("Isabel", "Ela/Dela", "Casada", "Informação Oculta", "21-1313131313", "Rua da Liderança",
+			"devsixlider@devsix.br", data, "Presidente", 13, "adminlider", "naoousehackearapresidenta",
+			199_488_130.12, "Presidente", 1, diretores);
 		
 		
 		
