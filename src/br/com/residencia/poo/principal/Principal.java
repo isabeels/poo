@@ -23,6 +23,14 @@ public class Principal {
 		List<Diretor> diretores;
 		diretores = new ArrayList<Diretor>();
 		
+		/* Lista gerencia*/
+		List<Gerente> gerentes;
+		gerentes = new ArrayList<Gerente>();
+		
+		/* Lista Clientes */
+		List<Cliente> clientes;
+		clientes = new ArrayList<Cliente>();
+		
 		/* Instanciação de contas */
 		Conta conta1 = new Conta(1, "3761", "Conta Corrente", "89121-5", 0.15, true, "123");
 		System.out.println(conta1.toString());
@@ -35,8 +43,7 @@ public class Principal {
 		Date data = new Date();
 		System.out.println(data);
 		
-		
-
+	
 		/* Adicionar uma lista para guardar todas as agências instanciadas */
 		/* Sintaxe -> List<TIPO> nomedoobjeto = new LISTA<TIPO>; */
 		List<Agencia> agencias;
@@ -45,7 +52,7 @@ public class Principal {
 		/* Instanciação de agência */
 		Agencia ag = new Agencia(1, "Avenida das Palmeiras", 1000, 1005, 1001);
 		agencias.add(ag);
-		/*  */
+		
 		
 		//System.out.println(agencias.get(0).getIdAgencia());
 		
@@ -57,13 +64,15 @@ public class Principal {
 		Gerente Gabriel = new Gerente("Gabriel", "todos","Casado", "1112223334", "22-999093552", "Rua da paixão",
 				"gabrieltsf10@gmail.com", data , "gerente", 2, "gabriel1", "gabriellocao",
 				127.000, "Gerente geral", 1005, 1000);
-		/*  */
+		gerentes.add(Gabriel);
+		
 		
 		/* Gerente Rosana */
 		Gerente Rosana = new Gerente("Rosana", "Sem gênero definido","Casada", "1112220004", "22-23252718", "Estrada novo circuito",
 				"dantasdoqa@gmail.com", data , "gerente", 2, "gabriel1", "gabriellocao",
 				127.000, "Gerente geral", 1005, 1000);
-		/*  */
+		gerentes.add(Rosana);
+		
 		
 		/* Diretor Vinícius */
 		Diretor diretor = new Diretor("Vinicin", "Não supomos genero", "Casado", "123999666-6", "22-1313131313", "Rua do cruzeiro",
@@ -71,26 +80,24 @@ public class Principal {
 				17.99, "Diretor geral das palhaçadinha", 1000, agencias);
 		diretores.add(diretor);
 		
+		/* Presidenta Isabel */
 		Presidente Isabel = new Presidente("Isabel", "Ela/Dela", "Casada", "Informação Oculta", "21-1313131313", "Rua da Liderança",
 			"devsixlider@devsix.br", data, "Presidente", 13, "adminlider", "naoousehackearapresidenta",
 			199_488_130.12, "Presidente", 1, diretores);
 		
-		
-		
-		/* Adicionar uma lista para guardar todos os clientes instanciados */
-		List<Cliente> clientes;
-		clientes = new ArrayList<Cliente>();
-		
-		
+
 		/* Instanciação de clientes */
-		Cliente aleatorio = new Cliente("Aleatório", "Elu/Delu", "Casade", "9997775544", "21-87674552", "Rua do colírio",
+		Cliente Harumi = new Cliente("Harumi Hiroshi Jun", "Elu/Delu", "Casade", "9997775544", "21-87674552", "Kenji Akira Abenyu",
 				"youtube@gmail.com", data, "Cliente", 2, 1005);
-		clientes.add(aleatorio);
+		clientes.add(Harumi);
+		Cliente Lesheshenko = new Cliente("Lesheshenko Plushchenko", "Elu/Delu", "Casade", "9997775544", "21-87674552", "Romaniuk Avenue",
+				"ukraineliberationarmy@gmail.com", data, "Cliente", 2, 1005);
+		clientes.add(Lesheshenko);
 		Cliente HarumotoYakasaki = new Cliente("HarumotoYakasaki", "Elu/Delu", "Casade", "9997775544", "21-87674552", "Tsumago-juku",
 				"tsumagojuku@gmail.com.jp", data, "Cliente", 3, 1005);
 		clientes.add(HarumotoYakasaki);
 		Cliente Wladimir = new Cliente("Wladimir BERELOWITCH", "Elu/Delu", "Solteire", "9997775544", "21-87674552", "Nikolai Dimitri Street",
-				"youtube@gmail.com", data, "Cliente", 4, 1005);
+				"russianvodkaforfree@gmail.com", data, "Cliente/Vendedor de Vodka", 4, 1005);
 		clientes.add(Wladimir);
 		Cliente Kwasi = new Cliente("Kwasi Oppong", "Elu/Delu", "Casade", "9997775544", "21-87674552", "Fumesua-Kokobra",
 				"shumetsu@gmail.com", data, "Cliente", 5, 1005);
@@ -103,12 +110,34 @@ public class Principal {
 		clientes.add(Chaikinoy);
 		
 		
-		
+		System.out.print("\n");
 		/* Output dos clientes */
 		for(int i=0;i<clientes.size();i++) {
-			System.out.println("Cliente "+(i+1));
-			System.out.println(clientes.get(i).getNome());
+			System.out.println("Cliente "+(i+1)+": ");
+			System.out.print(clientes.get(i).getNome()+"\n");
 		}
+		System.out.print("\n");
+		/* Output dos Gerentes */
+		for(int i=0;i<gerentes.size();i++) {
+			System.out.println("Gerente "+(i+1)+": ");
+			System.out.println(gerentes.get(i).getNome()+"\n");
+		}
+		System.out.print("\n");
+		
+		/* Output dos Diretores */
+		for(int i=0;i<diretores.size();i++) {
+			System.out.println("Diretor "+(i+1)+": ");
+			System.out.print(diretores.get(i).getNome()+"\n");
+		}
+		System.out.print("\n");
+		
+		/* Output das Agencias */
+		for(int i=0;i<agencias.size();i++) {
+			System.out.println("Agencia "+(i+1)+": ");
+			System.out.println(agencias.get(i).getIdAgencia()+"\n");
+		}
+		System.out.print("\n");
+		
 		
 
 	}
