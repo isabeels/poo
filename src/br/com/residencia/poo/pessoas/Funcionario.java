@@ -10,7 +10,8 @@ public class Funcionario extends Pessoa {
 	protected String senha;
 	protected Double salario;
 	protected String cargo;
-
+	
+	
 	/* CONSTRUTOR PARA INSTANCIAR NOVOS FUNCIONÁRIOS INVOCANDO SUPERCLASSE PESSOA */
 	public Funcionario(String nome, String genero, String estadoCivil, String cpf, String telefone, String endereco,
 			String email, Date dataNascimento, String tipoPessoa, Integer idFuncionario, String login, String senha,

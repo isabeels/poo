@@ -8,6 +8,8 @@ public class Agencia {
 	private Integer numeroAgencia;
 	private Integer idGerente;
 	private Integer idDiretor;
+	private Integer faturamento;
+	
 
 	/* CONSTRUTOR PARA INSTANCIAR NOVAS AGENCIAS */
 	public Agencia(Integer idAgencia, String endereco, Integer numeroAgencia, Integer idGerente, Integer idDiretor) {
@@ -38,6 +40,13 @@ public class Agencia {
 
 	public Integer getIdDiretor() {
 		return idDiretor;
+	}
+	
+	public Integer getFaturamento() {
+		return faturamento;
+	}
+	public void setFaturamento(Integer fat) {
+		this.faturamento = fat;
 	}
 
 }

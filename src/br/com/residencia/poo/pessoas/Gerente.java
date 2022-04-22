@@ -19,7 +19,13 @@ public class Gerente extends Funcionario {
 		this.idGerente = idGerente;
 		this.numeroAgencia = numeroAgencia;
 	}
+	//public Gerente(String param) {
+		//super(cargo, cargo, cargo, cargo, cargo, cargo, cargo, dataNascimento, cargo, idGerente, cargo, cargo, salario, cargo);
+	//};
 
+	
+
+	
 	/* GETTERS E SETTERS */
 	public Integer getIdGerente() {
 		return idGerente;
