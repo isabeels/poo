@@ -1,21 +1,31 @@
 package br.com.residencia.poo.pessoas;
 
-public class Funcionario extends Pessoa {
-	Integer idFuncionario;
-	String login;
-	String senha;
-	Double salario;
-	String cargo;
-	
-	public Funcionario() {
-		
-	}
-	
-//	public Funcionario(Double salario) {
-//		super();
-//		this.salario = salario;
-//	}
+import java.util.Date;
 
+public class Funcionario extends Pessoa {
+
+	/* ATRIBUTOS */
+	protected Integer idFuncionario;
+	protected String login;
+	protected String senha;
+	protected Double salario;
+	protected String cargo;
+
+	/* CONSTRUTOR PARA INSTANCIAR NOVOS FUNCIONÁRIOS INVOCANDO SUPERCLASSE PESSOA */
+	public Funcionario(String nome, String genero, String estadoCivil, String cpf, String telefone, String endereco,
+			String email, Date dataNascimento, String tipoPessoa, Integer idFuncionario, String login, String senha,
+			Double salario, String cargo) {
+
+		super(nome, genero, estadoCivil, cpf, telefone, endereco, email, dataNascimento, tipoPessoa);
+
+		this.idFuncionario = idFuncionario;
+		this.login = login;
+		this.senha = senha;
+		this.salario = salario;
+		this.cargo = cargo;
+	}
+
+	/* GETTERS E SETTERS */
 	public Integer getIdFuncionario() {
 		return idFuncionario;
 	}
@@ -55,7 +65,5 @@ public class Funcionario extends Pessoa {
 	public void setCargo(String cargo) {
 		this.cargo = cargo;
 	}
-	
-	
 
 }

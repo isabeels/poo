@@ -4,6 +4,8 @@ import java.text.NumberFormat;
 import java.time.LocalDate;
 
 public class Conta {
+
+	/* ATRIBUTOS */
 	private Integer idConta;
 	private String numeroAgencia;
 	private String tipoConta;
@@ -14,7 +16,8 @@ public class Conta {
 	private Boolean status;
 	private String senha;
 	NumberFormat nf = NumberFormat.getCurrencyInstance();
-	
+
+	/* CONSTRUTOR PARA INSTANCIAR NOVAS CONTAS */
 	public Conta(Integer idConta, String numeroAgencia, String tipoConta, String numeroConta, Double saldo,
 			Boolean status, String senha) {
 		this.idConta = idConta;
@@ -27,6 +30,7 @@ public class Conta {
 		this.dataAbertura = LocalDate.now();
 	}
 
+	/* GETTERS E SETTERS */
 	public Integer getIdConta() {
 		return idConta;
 	}
@@ -83,6 +87,21 @@ public class Conta {
 		this.senha = senha;
 	}
 
+	/* MÉTODOS DA CONTA - TUDO QUE UMA CONTA CORRENTE E POUPANCA PODE REALIZAR */
+	public void sacarValor(double valor) {
+	}
+
+	public void depositarValor(double valor) {
+	}
+
+	public void transferirValor(double valor, String contaDestino) {
+	}
+
+	public void exibirSaldo() {
+		System.out.printf("Saldo atual e disponível: R$ %.2f", this.saldo);
+	}
+
+	/* OVERRIDES */
 	@Override
 	public String toString() {
 		return "Número da agência: " + numeroAgencia + "\n" + "Tipo da conta: " + tipoConta + "\n" + "Número da conta: "
