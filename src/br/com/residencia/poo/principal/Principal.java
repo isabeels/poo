@@ -31,6 +31,8 @@ public class Principal {
 		List<Cliente> clientes;
 		clientes = new ArrayList<Cliente>();
 		
+		
+		
 		/* Instanciação de contas */
 		Conta conta1 = new Conta(1, "3761", "Conta Corrente", "89121-5", 0.15, true, "123");
 		System.out.println(conta1.toString());
@@ -63,22 +65,22 @@ public class Principal {
 		/* Gerente Gabriel */
 		Gerente Gabriel = new Gerente("Gabriel", "todos","Casado", "1112223334", "22-999093552", "Rua da paixão",
 				"gabrieltsf10@gmail.com", data , "gerente", 2, "gabriel1", "gabriellocao",
-				127.000, "Gerente geral", 1005, 1000);
+				127.000, "Gerente geral", 1005, 1000, contas);
 		gerentes.add(Gabriel);
 		
 		
 		/* Gerente Rosana */
 		Gerente Rosana = new Gerente("Rosana", "Sem gênero definido","Casada", "1112220004", "22-23252718", "Estrada novo circuito",
 				"dantasdoqa@gmail.com", data , "gerente", 2, "gabriel1", "gabriellocao",
-				127.000, "Gerente geral", 1005, 1000);
+				127.000, "Gerente geral", 1005, 1000, contas);
 		gerentes.add(Rosana);
 		
 		
 		/* Diretor Vinícius */
-		Diretor diretor = new Diretor("Vinicin", "Não supomos genero", "Casado", "123999666-6", "22-1313131313", "Rua do cruzeiro",
+		Diretor Vinicius = new Diretor("Vinicin", "Não supomos genero", "Casado", "123999666-6", "22-1313131313", "Rua do cruzeiro",
 				"vinivspdasgata@gmail.com", data , "diretor", 1001, "palhaço1", "fazumapalhaçadinha",
 				17.99, "Diretor geral das palhaçadinha", 1000, agencias);
-		diretores.add(diretor);
+		diretores.add(Vinicius);
 		
 		/* Presidenta Isabel */
 		Presidente Isabel = new Presidente("Isabel", "Ela/Dela", "Casada", "Informação Oculta", "21-1313131313", "Rua da Liderança",
@@ -132,12 +134,16 @@ public class Principal {
 		System.out.print("\n");
 		
 		/* Output das Agencias */
-		for(int i=0;i<agencias.size();i++) {
-			System.out.println("Agencia "+(i+1)+": ");
-			System.out.println(agencias.get(i).getIdAgencia()+"\n");
-		}
-		System.out.print("\n");
+		//for(int i=0;i<agencias.size();i++) {
+		//	System.out.println("Agencia "+(i+1)+": ");
+		//	System.out.println(agencias.get(i).getIdAgencia()+"\n");
+		//}
 		
+		
+		System.out.println("\n\n\n\n");
+		Rosana.emitirRelatorioContas();
+		System.out.println("\n\n\n\n");
+		Vinicius.emitirRelatorioAgencias();
 		
 
 	}
