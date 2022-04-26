@@ -3,6 +3,7 @@ package br.com.residencia.poo.contas;
 import java.text.NumberFormat;
 import java.time.LocalDate;
 
+import br.com.residencia.poo.exceptions.CpfInvalidoException;
 import br.com.residencia.poo.exceptions.OperacaoNaoAutorizadaException;
 import br.com.residencia.poo.exceptions.SaldoInsuficienteException;
 import br.com.residencia.poo.exceptions.ValorInvalidoException;
@@ -128,16 +129,16 @@ public abstract class Conta {
 	}
 
 	public void transferencia(double valor, String cpfTitular, String destino) throws ValorInvalidoException, SaldoInsuficienteException, CpfInvalidoException {
-        if (valor <= 0) {
-            throw new ValorInvalidoException("Impossível realizar transferência de valores negativos.");
-        }
-        else if (this.saldo < (valor + taxaTransferencia)) {
-            throw new SaldoInsuficienteException();
-        }
-        else {
-        	this.saldo -= (valor + taxaTransferencia);
-        }
-
+		if (valor <= 0) {
+			throw new ValorInvalidoException("Impossível realizar transferência de valores negativos.");
+		}
+		else if (this.saldo < (valor + taxaTransferencia)) {
+			throw new SaldoInsuficienteException();
+		}
+		else {
+			this.saldo -= (valor + taxaTransferencia);
+		}
+	}
 	public void exibirSaldo() {
 		System.out.printf("Saldo atual e disponível: R$ %.2f", this.saldo);
 	}
