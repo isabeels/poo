@@ -22,6 +22,8 @@ public class Principal {
 		/* Lista contas */
 		List<Conta> contas;
 		contas = new ArrayList<Conta>();
+		List<Conta> contaDois;
+		contaDois = new ArrayList<Conta>();
 		
 		/* Lista diretor */
 		List<Diretor> diretores;
@@ -46,6 +48,12 @@ public class Principal {
 		System.out.println(conta2.toString());
 		contas.add(conta2);
 		
+		Conta conta3 = new Conta(2, "1699", "Conta Poupança", "55559-8", 1010.00, true, "321");
+		contaDois.add(conta3);
+		Conta conta4 = new Conta(2, "1545", "Conta Poupança", "51999-8", 2000.00, true, "321");
+		contaDois.add(conta4);
+		
+		
 		Date data = new Date();
 		System.out.println(data);
 		
@@ -67,6 +75,9 @@ public class Principal {
 		Agencia ag = new Agencia(1, "Avenida das Palmeiras", 1000, 1005, 1001);
 		agencias.add(ag);
 		
+		Agencia age = new Agencia(1, "Avenida do Aconchego", 1000, 1000, 1002);
+		agencias.add(age);
+		
 		
 		//System.out.println(agencias.get(0).getIdAgencia());
 		
@@ -77,21 +88,21 @@ public class Principal {
 		/* Gerente Gabriel */
 		Gerente Gabriel = new Gerente("Gabriel", "todos","Casado", "1112223334", "22-999093552", "Rua da paixão",
 				"gabrieltsf10@gmail.com", data , "gerente", 2, "gabriel1", "gabriellocao",
-				127.000, "Gerente geral", 1005, 1000, contas);
+				127.000, "Gerente geral", 1004, 1005, contas);
 		gerentes.add(Gabriel);
 		
 		
 		/* Gerente Rosana */
 		Gerente Rosana = new Gerente("Rosana", "Sem gênero definido","Casada", "1112220004", "22-23252718", "Estrada novo circuito",
 				"dantasdoqa@gmail.com", data , "gerente", 2, "gabriel1", "gabriellocao",
-				127.000, "Gerente geral", 1005, 1000, contas);
+				127.000, "Gerente geral", 1005, 1000, contaDois);
 		gerentes.add(Rosana);
 		
 		
 		/* Diretor Vinícius */
 		Diretor Vinicius = new Diretor("Vinicin", "Não supomos genero", "Casado", "123999666-6", "22-1313131313", "Rua do cruzeiro",
 				"vinivspdasgata@gmail.com", data , "diretor", 1001, "palhaço1", "fazumapalhaçadinha",
-				17.99, "Diretor geral das palhaçadinha", 1000, agencias);
+				17.99, "Diretor geral das palhaçadinha", 1000, agencias, gerentes);
 		diretores.add(Vinicius);
 		
 		/* Presidenta Isabel */
@@ -154,6 +165,7 @@ public class Principal {
 		
 		System.out.println("\n\n\n\n");
 		Rosana.emitirRelatorioContas();
+		Gabriel.emitirRelatorioContas();
 		System.out.println("\n\n\n\n");
 		Vinicius.emitirRelatorioAgencias();
 		

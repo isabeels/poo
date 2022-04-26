@@ -10,15 +10,17 @@ public class Diretor extends Funcionario {
 	/* ATRIBUTOS */
 	protected Integer idDiretor;
 	protected List<Agencia> agenciaTrabalho = new ArrayList<>();
+	protected List<Gerente> gerentes = new ArrayList<>();
 
 	/* CONSTRUTOR PARA INSTANCIAR NOVOS DIRETORES INVOCANDO SUPERCLASSE FUNCIONARIO*/
 	public Diretor(String nome, String genero, String estadoCivil, String cpf, String telefone, String endereco,
 			String email, Date dataNascimento, String tipoPessoa, Integer idFuncionario, String login, String senha,
-			Double salario, String cargo, Integer idDiretor, List<Agencia> agenciaTrabalho) {
+			Double salario, String cargo, Integer idDiretor, List<Agencia> agenciaTrabalho, List<Gerente> gerentes) {
 		super(nome, genero, estadoCivil, cpf, telefone, endereco, email, dataNascimento, tipoPessoa, idFuncionario,
 				login, senha, salario, cargo);
 		this.idDiretor = idDiretor;
 		this.agenciaTrabalho = agenciaTrabalho;
+		this.gerentes= gerentes;
 	}
 
 	/* GETTERS E SETTERS */
@@ -41,6 +43,7 @@ public class Diretor extends Funcionario {
 	/* MÉTODOS DA CLASSE DIRETOR */
 
 	public void emitirRelatorioAgencias() {
+		
 		for(int i=0;i<agenciaTrabalho.size();i++) {
 			System.out.println("ID da Agência "+(i+1)+": "+agenciaTrabalho.get(i).getIdAgencia()+"\n");
 			System.out.println("Agência Nº : "+agenciaTrabalho.get(i).getNumeroAgencia()+"\n");
@@ -48,6 +51,10 @@ public class Diretor extends Funcionario {
 			System.out.println("Localização : "+agenciaTrabalho.get(i).getEndereco()+"\n");
 			System.out.println("Id do Gerente Geral : "+agenciaTrabalho.get(i).getIdGerente()+"\n");
 			System.out.println("Faturamento : "+agenciaTrabalho.get(i).getFaturamento()+"\n");
+			System.out.println(gerentes.get(i).getNome());
+			gerentes.get(i).emitirRelatorioContas();
+			
+			
 		}
 	}
 
