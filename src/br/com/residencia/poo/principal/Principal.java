@@ -6,6 +6,10 @@ import java.util.List;
 
 import br.com.residencia.poo.agencias.Agencia;
 import br.com.residencia.poo.contas.Conta;
+import br.com.residencia.poo.exceptions.CpfInvalidoException;
+import br.com.residencia.poo.exceptions.OperacaoNaoAutorizadaException;
+import br.com.residencia.poo.exceptions.SaldoInsuficienteException;
+import br.com.residencia.poo.exceptions.ValorInvalidoException;
 import br.com.residencia.poo.pessoas.Cliente;
 import br.com.residencia.poo.pessoas.Diretor;
 import br.com.residencia.poo.pessoas.Funcionario;
@@ -14,7 +18,7 @@ import br.com.residencia.poo.pessoas.Presidente;
 
 public class Principal {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ValorInvalidoException, SaldoInsuficienteException, CpfInvalidoException, OperacaoNaoAutorizadaException {
 		/* Lista contas */
 		List<Conta> contas;
 		contas = new ArrayList<Conta>();
@@ -34,17 +38,25 @@ public class Principal {
 		
 		
 		/* Instanciação de contas */
-		Conta conta1 = new Conta(1, "3761", "Conta Corrente", "89121-5", 0.15, true, "123");
+		Conta conta1 = new Conta(1, "3761", "Conta Corrente", "89121-5", 1000.00, true, "123");
 		System.out.println(conta1.toString());
 		contas.add(conta1);
 		
-		Conta conta2 = new Conta(2, "1673", "Conta Corrente", "51219-8", 1562.00, true, "321");
+		Conta conta2 = new Conta(2, "1673", "Conta Corrente", "51219-8", 1000.00, true, "321");
 		System.out.println(conta2.toString());
 		contas.add(conta2);
 		
 		Date data = new Date();
 		System.out.println(data);
 		
+		conta2.depositar(200);
+		System.out.println(conta2.toString());
+		
+		conta1.transferir(200, conta2);
+		System.out.println(conta1.toString());
+		System.out.println(conta2.toString());
+		
+		conta1.exibirSaldo();
 	
 		/* Adicionar uma lista para guardar todas as agências instanciadas */
 		/* Sintaxe -> List<TIPO> nomedoobjeto = new LISTA<TIPO>; */

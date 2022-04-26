@@ -8,7 +8,7 @@ import br.com.residencia.poo.exceptions.OperacaoNaoAutorizadaException;
 import br.com.residencia.poo.exceptions.SaldoInsuficienteException;
 import br.com.residencia.poo.exceptions.ValorInvalidoException;
 
-public abstract class Conta {
+public class Conta {
 
 	/* ATRIBUTOS */
 	private Integer idConta;
@@ -39,7 +39,7 @@ public abstract class Conta {
 		this.numeroAgencia = numeroAgencia;
 		this.tipoConta = tipoConta;
 		this.numeroConta = numeroConta;
-		this.saldoFormatado = nf.format(saldo);
+		this.saldo = saldo;
 		this.status = status;
 		this.senha = senha;
 		this.dataAbertura = LocalDate.now();
@@ -103,7 +103,7 @@ public abstract class Conta {
 	}
 
 	/* MÉTODOS DA CONTA - TUDO QUE UMA CONTA CORRENTE E POUPANCA PODE REALIZAR */
-	public void saque(double valor)
+	public void sacar(double valor)
 			throws ValorInvalidoException, SaldoInsuficienteException, OperacaoNaoAutorizadaException {
 
 		if (status) {
@@ -128,7 +128,7 @@ public abstract class Conta {
 
 	}
 
-	public void transferencia(double valor, String cpfTitular, String destino) throws ValorInvalidoException, SaldoInsuficienteException, CpfInvalidoException {
+	public void transferir(double valor, Conta destino) throws ValorInvalidoException, SaldoInsuficienteException, CpfInvalidoException, OperacaoNaoAutorizadaException {
 		if (valor <= 0) {
 			throw new ValorInvalidoException("Impossível realizar transferência de valores negativos.");
 		}
@@ -136,9 +136,11 @@ public abstract class Conta {
 			throw new SaldoInsuficienteException();
 		}
 		else {
-			this.saldo -= (valor + taxaTransferencia);
+			sacar(valor + taxaTransferencia);
+			destino.depositar(valor);
 		}
 	}
+	
 	public void exibirSaldo() {
 		System.out.printf("Saldo atual e disponível: R$ %.2f", this.saldo);
 	}
@@ -147,7 +149,7 @@ public abstract class Conta {
 	@Override
 	public String toString() {
 		return "Número da agência: " + numeroAgencia + "\n" + "Tipo da conta: " + tipoConta + "\n" + "Número da conta: "
-				+ numeroConta + "\n" + "Saldo da conta: " + saldoFormatado + "\n" + "Data de abertura: " + dataAbertura
+				+ numeroConta + "\n" + "Saldo da conta: " + saldo + "\n" + "Data de abertura: " + dataAbertura
 				+ "\n" + "Status da conta: " + status + "\n";
 	}
 }
