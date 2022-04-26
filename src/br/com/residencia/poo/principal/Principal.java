@@ -20,10 +20,10 @@ public class Principal {
 
 	public static void main(String[] args) throws ValorInvalidoException, SaldoInsuficienteException, CpfInvalidoException, OperacaoNaoAutorizadaException {
 		/* Lista contas */
-		List<Conta> contas;
-		contas = new ArrayList<Conta>();
-		List<Conta> contaDois;
-		contaDois = new ArrayList<Conta>();
+		List<Conta> contasAgenciaUm;
+		contasAgenciaUm = new ArrayList<Conta>();
+		List<Conta> contasAgenciaDois;
+		contasAgenciaDois= new ArrayList<Conta>();
 		
 		/* Lista diretor */
 		List<Diretor> diretores;
@@ -42,16 +42,16 @@ public class Principal {
 		/* Instanciação de contas */
 		Conta conta1 = new Conta(1, "3761", "Conta Corrente", "89121-5", 1000.00, true, "123");
 		System.out.println(conta1.toString());
-		contas.add(conta1);
+		contasAgenciaUm.add(conta1);
 		
 		Conta conta2 = new Conta(2, "1673", "Conta Corrente", "51219-8", 1000.00, true, "321");
 		System.out.println(conta2.toString());
-		contas.add(conta2);
+		contasAgenciaUm.add(conta2);
 		
-		Conta conta3 = new Conta(2, "1699", "Conta Poupança", "55559-8", 1010.00, true, "321");
-		contaDois.add(conta3);
-		Conta conta4 = new Conta(2, "1545", "Conta Poupança", "51999-8", 2000.00, true, "321");
-		contaDois.add(conta4);
+		Conta conta3 = new Conta(3, "1699", "Conta Poupança", "55559-8", 1010.00, true, "321");
+		contasAgenciaUm.add(conta3);
+		Conta conta4 = new Conta(4, "1545", "Conta Poupança", "51999-8", 2000.00, true, "321");
+		contasAgenciaUm.add(conta4);
 		
 		
 		Date data = new Date();
@@ -72,10 +72,10 @@ public class Principal {
 		agencias = new ArrayList<Agencia>();
 		
 		/* Instanciação de agência */
-		Agencia ag = new Agencia(1, "Avenida das Palmeiras", 1000, 1005, 1001);
+		Agencia ag = new Agencia(1, "Avenida das Palmeiras", 1000, 1005, 1001,contasAgenciaUm);
 		agencias.add(ag);
 		
-		Agencia age = new Agencia(1, "Avenida do Aconchego", 1000, 1000, 1002);
+		Agencia age = new Agencia(1, "Avenida do Aconchego", 1000, 1000, 1002,contas);
 		agencias.add(age);
 		
 		
@@ -88,14 +88,14 @@ public class Principal {
 		/* Gerente Gabriel */
 		Gerente Gabriel = new Gerente("Gabriel", "todos","Casado", "1112223334", "22-999093552", "Rua da paixão",
 				"gabrieltsf10@gmail.com", data , "gerente", 2, "gabriel1", "gabriellocao",
-				127.000, "Gerente geral", 1004, 1005, contas);
+				127.000, "Gerente geral", 1004, 1005, contasAgenciaUm);
 		gerentes.add(Gabriel);
 		
 		
 		/* Gerente Rosana */
 		Gerente Rosana = new Gerente("Rosana", "Sem gênero definido","Casada", "1112220004", "22-23252718", "Estrada novo circuito",
 				"dantasdoqa@gmail.com", data , "gerente", 2, "gabriel1", "gabriellocao",
-				127.000, "Gerente geral", 1005, 1000, contaDois);
+				127.000, "Gerente geral", 1005, 1000, contasAgenciaUm);
 		gerentes.add(Rosana);
 		
 		
@@ -164,10 +164,12 @@ public class Principal {
 		
 		
 		System.out.println("\n\n\n\n");
-		Rosana.emitirRelatorioContas();
-		Gabriel.emitirRelatorioContas();
+		//Rosana.emitirRelatorioContas();
+		//Gabriel.emitirRelatorioContas();
+		ag.emitirRelatorioContas();
+		
 		System.out.println("\n\n\n\n");
-		Vinicius.emitirRelatorioAgencias();
+		//Vinicius.emitirRelatorioAgencias();
 		
 
 	}
