@@ -3,11 +3,16 @@ package br.com.residencia.poo.contas;
 import java.text.NumberFormat;
 import java.time.LocalDate;
 
-public class Conta {
+import br.com.residencia.poo.exceptions.OperacaoNaoAutorizadaException;
+import br.com.residencia.poo.exceptions.SaldoInsuficienteException;
+import br.com.residencia.poo.exceptions.ValorInvalidoException;
+
+public abstract class Conta {
 
 	/* ATRIBUTOS */
 	private Integer idConta;
 	private String numeroAgencia;
+	private String cpfTitular;
 	private String tipoConta;
 	private String numeroConta;
 	private Double saldo;
@@ -17,7 +22,16 @@ public class Conta {
 	private String senha;
 	NumberFormat nf = NumberFormat.getCurrencyInstance();
 
+	static final double taxaSaque = 0.10;
+	static final double taxaDeposito = 0.10;
+	static final double taxaTransferencia = 0.20;
+
 	/* CONSTRUTOR PARA INSTANCIAR NOVAS CONTAS */
+
+	public Conta() {
+
+	}
+
 	public Conta(Integer idConta, String numeroAgencia, String tipoConta, String numeroConta, Double saldo,
 			Boolean status, String senha) {
 		this.idConta = idConta;
@@ -88,14 +102,41 @@ public class Conta {
 	}
 
 	/* MÉTODOS DA CONTA - TUDO QUE UMA CONTA CORRENTE E POUPANCA PODE REALIZAR */
-	public void sacarValor(double valor) {
+	public void saque(double valor)
+			throws ValorInvalidoException, SaldoInsuficienteException, OperacaoNaoAutorizadaException {
+
+		if (status) {
+			if (valor <= 0) {
+				throw new ValorInvalidoException();
+			} else if (this.saldo < (valor + taxaSaque)) {
+				throw new SaldoInsuficienteException();
+			} else {
+				this.saldo -= (valor + taxaSaque);
+			}
+		} else {
+			throw new OperacaoNaoAutorizadaException("Impossível sacar de uma conta fechada.");
+		}
 	}
 
-	public void depositarValor(double valor) {
+	public void depositar(double valor) throws ValorInvalidoException {
+		if (valor <= taxaDeposito) {
+			throw new ValorInvalidoException("Impossível depositar valores negativos.");
+		} else {
+			this.saldo += (valor - taxaDeposito);
+		}
+
 	}
 
-	public void transferirValor(double valor, String contaDestino) {
-	}
+	public void transferencia(double valor, String cpfTitular, String destino) throws ValorInvalidoException, SaldoInsuficienteException, CpfInvalidoException {
+        if (valor <= 0) {
+            throw new ValorInvalidoException("Impossível realizar transferência de valores negativos.");
+        }
+        else if (this.saldo < (valor + taxaTransferencia)) {
+            throw new SaldoInsuficienteException();
+        }
+        else {
+        	this.saldo -= (valor + taxaTransferencia);
+        }
 
 	public void exibirSaldo() {
 		System.out.printf("Saldo atual e disponível: R$ %.2f", this.saldo);
