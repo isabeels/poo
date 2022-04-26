@@ -1,5 +1,9 @@
 package br.com.residencia.poo.contas;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.text.NumberFormat;
 import java.time.LocalDate;
 
@@ -64,10 +68,6 @@ public class Conta {
 
 	public double getSaldo() {
 		return saldo;
-	}
-
-	public String getSaldoFormatado() {
-		return saldoFormatado;
 	}
 
 	public LocalDate getDataAbertura() {
@@ -144,7 +144,32 @@ public class Conta {
 	public void exibirSaldo() {
 		System.out.printf("Saldo atual e disponível: R$ %.2f", this.saldo);
 	}
+	
+	public void relatorioTransacao(Conta conta, double valor, String cpfDestinatario) throws IOException {
+        
+		File diretorioRegistroTransacoes = new File ("C:\\RegistroTransacoesContas\\");
+        File historicoConta = new File (diretorioRegistroTransacoes.getAbsolutePath() + "\\historicoTransacoes.txt");
 
+        if (!diretorioRegistroTransacoes.exists()) {
+        	diretorioRegistroTransacoes.mkdirs();  //cria um diretório
+       }
+
+        if(!historicoConta.exists()) {
+        	historicoConta.createNewFile();  //cria um arquivo
+        }
+
+       try(FileWriter historicoContaWriter = new FileWriter(historicoConta, true);
+            BufferedWriter historicoContaBuff = new BufferedWriter(historicoContaWriter)) {
+
+    	   historicoContaBuff.append("aqui vai entrar o conta.get puxando os comprovantes");
+  	      	   
+    	   historicoContaBuff.newLine();
+    	   
+       } catch (IOException e) {
+           System.out.println(e.getMessage());
+       }
+   }
+	
 	/* OVERRIDES */
 	@Override
 	public String toString() {
