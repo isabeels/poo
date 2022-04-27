@@ -10,14 +10,13 @@ import br.com.residencia.poo.exceptions.CpfInvalidoException;
 import br.com.residencia.poo.exceptions.OperacaoNaoAutorizadaException;
 import br.com.residencia.poo.exceptions.SaldoInsuficienteException;
 import br.com.residencia.poo.exceptions.ValorInvalidoException;
-import br.com.residencia.poo.pessoas.Pessoa;
 
 public class Conta {
 
 	/* ATRIBUTOS */
 	private Integer idConta;
 	private String numeroAgencia;
-	protected Pessoa cpfTitular;
+	private Conta cpfTitular;
 	private String tipoConta;
 	private String numeroConta;
 	private Double saldo;
@@ -27,12 +26,6 @@ public class Conta {
 	double taxaSaque = 0.10;
 	double taxaDeposito = 0.10;
 	double taxaTransferencia = 0.20;
-	double totalTaxaSaque = 0;
-	
-//	    protected Pessoa cpfTitular;
-//	    protected double saldo;
-//	    protected Agencia agencia;
-//	    protected static TipoConta tipo;
 
 	/* CONSTRUTOR PARA DIFERENTES TIPOS DE NOVAS CONTAS */
 	
@@ -49,9 +42,8 @@ public class Conta {
 //	}
 	
 
-	public Conta(Pessoa cpfTitular, Integer idConta, String numeroAgencia, String tipoConta, String numeroConta, Double saldo,
+	public Conta(Integer idConta, String numeroAgencia, String tipoConta, String numeroConta, Double saldo,
 			Boolean status, String senha) {
-		this.cpfTitular = cpfTitular;
 		this.idConta = idConta;
 		this.numeroAgencia = numeroAgencia;
 		this.tipoConta = tipoConta;
@@ -129,18 +121,12 @@ public class Conta {
 	}
 	
 
-	public Pessoa getCpfTitular() {
+	public Conta getCpfTitular() {
 		return cpfTitular;
 	}
-	
-
-	public double getTotalTaxaSaque() {
-		return totalTaxaSaque;
-	}
-
 
 	/* MÉTODOS DA CONTA - TUDO QUE UMA CONTA CORRENTE E POUPANCA PODE REALIZAR */
-	public void sacar(Pessoa cpfTitular, double valor)
+	public void sacar(Conta cpfTitular, double valor)
 			throws ValorInvalidoException, SaldoInsuficienteException, OperacaoNaoAutorizadaException, IOException {
 
 		if (Boolean.TRUE.equals(status)) {
@@ -152,10 +138,13 @@ public class Conta {
 				this.saldo -= valor;
 				exibirSaldo();
 				comprovanteSaque(cpfTitular,valor);
+<<<<<<< HEAD
 			
 				this.totalTaxaSaque += taxaSaque;
 				
 				
+=======
+>>>>>>> branch 'main' of https://github.com/isabeels/poo.git
 				}
 		} else {
 			throw new OperacaoNaoAutorizadaException("Impossível sacar de uma conta fechada.");
@@ -190,7 +179,7 @@ public class Conta {
 		System.out.printf("Saldo atual e disponível: R$ %.2f", this.saldo);
 	}
 	
-	public void comprovanteSaque(Pessoa pessoa, double valor) throws IOException {
+	public void comprovanteSaque(Conta conta, double valor) throws IOException {
         
 		File diretorioRegistroTransacoes = new File ("./temp/");
         File historicoConta = new File (diretorioRegistroTransacoes.getAbsolutePath() + "\\historicoSaques.txt");
@@ -206,19 +195,9 @@ public class Conta {
        try(FileWriter historicoContaWriter = new FileWriter(historicoConta, true);
             BufferedWriter historicoContaBuff = new BufferedWriter(historicoContaWriter)) {
 
-    	   historicoContaBuff.append("¨¨¨¨¨¨¨¨¨¨COMPROVANTE DE SAQUE¨¨¨¨¨¨¨¨¨¨¨¨¨¨");
+    	   historicoContaBuff.append("¨¨¨¨¨¨¨¨COMPROVANTE DE MOVIMENTAÇÃO¨¨¨¨¨¨¨¨¨");
     	   historicoContaBuff.newLine();
-    	   historicoContaBuff.newLine();
-    	   historicoContaBuff.append(pessoa.getNome()+ "| CPF: " + pessoa.getCpf() + "| VALOR DO SAQUE: " + valor + ".");
-    	   historicoContaBuff.newLine();
-    	   historicoContaBuff.newLine();
-    	   historicoContaBuff.append("Taxa de saque: R$ " + String.format("%.2f", taxaSaque));
-    	   historicoContaBuff.newLine();
-    	   historicoContaBuff.append("Total da tributação de taxas de saque: R$ " + String.format("%.2f", this.getTaxaSaque()));
-    	   historicoContaBuff.newLine();
-    	   historicoContaBuff.append("¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨");
-    	   historicoContaBuff.newLine();
-    	   historicoContaBuff.newLine();
+    	   historicoContaBuff.append(conta.getCpfTitular() + "," + valor + ".");
     	   
     	   
        } catch (IOException e) {
