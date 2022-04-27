@@ -53,6 +53,18 @@ public class Principal {
 		Conta conta4 = new Conta(4, "1545", "Conta Poupança", "51999-8", 2000.00, true, "321");
 		contasAgenciaUm.add(conta4);
 		
+		/* */
+		
+		
+		//Conta contaT1 = new Conta();
+		//contaT1.imprimirConta();
+		//Conta contaT2 = new Conta();
+		//contaT2.imprimirConta();
+		//Conta contaT3 = new Conta();
+		//contaT3.imprimirConta();
+		
+	
+		/* */
 		
 		Date data = new Date();
 		System.out.println(data);
@@ -75,7 +87,7 @@ public class Principal {
 		Agencia ag = new Agencia(1, "Avenida das Palmeiras", 1000, 1005, 1001,contasAgenciaUm);
 		agencias.add(ag);
 		
-		Agencia age = new Agencia(1, "Avenida do Aconchego", 1000, 1000, 1002,contas);
+		Agencia age = new Agencia(1, "Avenida do Aconchego", 1000, 1000, 1002,contasAgenciaUm);
 		agencias.add(age);
 		
 		

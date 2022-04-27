@@ -25,17 +25,27 @@ public class Conta {
 	private LocalDate dataAbertura;
 	private Boolean status;
 	private String senha;
+	
 	NumberFormat nf = NumberFormat.getCurrencyInstance();
 
 	static final double taxaSaque = 0.10;
 	static final double taxaDeposito = 0.10;
 	static final double taxaTransferencia = 0.20;
 
-	/* CONSTRUTOR PARA INSTANCIAR NOVAS CONTAS */
-
+	/* CONSTRUTOR PARA DIFERENTES TIPOS DE NOVAS CONTAS */
+	
+	private static int totalDeContas = 0;
+	
 	public Conta() {
-
+		 Conta.totalDeContas = Conta.totalDeContas + 1;
 	}
+	public void imprimirConta() {
+		System.out.println(this.totalDeContas);
+	}
+	public int getNumeroContas() {
+		return totalDeContas;
+	}
+	
 
 	public Conta(Integer idConta, String numeroAgencia, String tipoConta, String numeroConta, Double saldo,
 			Boolean status, String senha) {
@@ -47,6 +57,7 @@ public class Conta {
 		this.status = status;
 		this.senha = senha;
 		this.dataAbertura = LocalDate.now();
+		Conta.totalDeContas = Conta.totalDeContas + 1;
 	}
 
 	/* GETTERS E SETTERS */
