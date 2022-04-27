@@ -57,12 +57,17 @@ public class Gerente extends Funcionario {
 
 	/* MÉTODOS DA CLASSE GERENTE */
 	
+	public void emitirRelatorioGerente() {
+		
+	}
+	
 	public void emitirRelatorioContas() {
 		for(int i=0;i<contas.size();i++) {
 			System.out.println("Conta "+(i+1)+": "+contas.get(i).getNumeroConta());
-			System.out.println(contas.get(i).getNumeroAgencia()+"\n");
-			System.out.println(contas.get(i).getTipoConta()+"\n");
-			System.out.println(contas.get(i).getIdConta()+"\n");	
+			System.out.println(contas.get(i).getNumeroAgencia());
+			System.out.println(contas.get(i).getTipoConta());
+			System.out.println(contas.get(i).getIdConta());
+			
 		}
 	}
 }
