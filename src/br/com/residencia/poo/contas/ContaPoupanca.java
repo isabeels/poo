@@ -1,5 +1,12 @@
 package br.com.residencia.poo.contas;
 
+import java.io.IOException;
+
+import br.com.residencia.poo.exceptions.CpfInvalidoException;
+import br.com.residencia.poo.exceptions.OperacaoNaoAutorizadaException;
+import br.com.residencia.poo.exceptions.SaldoInsuficienteException;
+import br.com.residencia.poo.exceptions.ValorInvalidoException;
+
 public class ContaPoupanca extends Conta {
 
 	/* ATRIBUTOS */
@@ -37,4 +44,22 @@ public class ContaPoupanca extends Conta {
 
 	}
 
+	@Override
+	public void sacar(Conta cpfTitular, double valor)
+			throws ValorInvalidoException, SaldoInsuficienteException, OperacaoNaoAutorizadaException, IOException {
+		super.sacar(cpfTitular, valor);
+	}
+
+	@Override
+	public void depositar(double valor) throws ValorInvalidoException {
+		super.depositar(valor);
+	}
+
+	@Override
+	public void transferir(double valor, Conta destino) throws ValorInvalidoException, SaldoInsuficienteException,
+			CpfInvalidoException, OperacaoNaoAutorizadaException, IOException {
+		super.transferir(valor, destino);
+	}
+
+	
 }

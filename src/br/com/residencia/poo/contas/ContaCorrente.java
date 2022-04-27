@@ -1,5 +1,12 @@
 package br.com.residencia.poo.contas;
 
+import java.io.IOException;
+
+import br.com.residencia.poo.exceptions.CpfInvalidoException;
+import br.com.residencia.poo.exceptions.OperacaoNaoAutorizadaException;
+import br.com.residencia.poo.exceptions.SaldoInsuficienteException;
+import br.com.residencia.poo.exceptions.ValorInvalidoException;
+
 public class ContaCorrente extends Conta {
 
 	/* ATRIBUTOS */
@@ -41,14 +48,44 @@ public class ContaCorrente extends Conta {
 		this.taxa = taxa;
 	}
 
+	@Override
+	public double getTaxaSaque() {
+		return super.getTaxaSaque();
+	}
+
+	@Override
+	public double getTaxaDeposito() {
+		return super.getTaxaDeposito();
+	}
+
+	@Override
+	public double getTaxaTransferencia() {
+		return super.getTaxaTransferencia();
+	}
+
+	@Override
+	public void sacar(Conta conta, double valor)
+			throws ValorInvalidoException, SaldoInsuficienteException, OperacaoNaoAutorizadaException, IOException {
+		super.sacar(valor + this.getTaxaSaque());
+	}
+
+	@Override
+	public void depositar(double valor) throws ValorInvalidoException {
+		super.depositar(valor - this.getTaxaDeposito());
+	}
+
+	@Override
+	public void transferir(double valor, Conta destino) throws ValorInvalidoException, SaldoInsuficienteException,
+			CpfInvalidoException, OperacaoNaoAutorizadaException, IOException {
+		super.transferir(valor + this.getTaxaTransferencia(), destino);
+	}
+
+	@Override
+	public void exibirSaldo() {
+		super.exibirSaldo();
+	}
+}
+
 	/* MÉTODOS DE UMA CONTA CORRENTE */
 
-	public void pagarTaxa() {
 
-	}
-
-	public void pagarChequeEspecial() {
-
-	}
-
-}

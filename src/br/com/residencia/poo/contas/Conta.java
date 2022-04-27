@@ -4,7 +4,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.NumberFormat;
 import java.time.LocalDate;
 
 import br.com.residencia.poo.exceptions.CpfInvalidoException;
@@ -17,34 +16,30 @@ public class Conta {
 	/* ATRIBUTOS */
 	private Integer idConta;
 	private String numeroAgencia;
-	private String cpfTitular;
+	private Conta cpfTitular;
 	private String tipoConta;
 	private String numeroConta;
 	private Double saldo;
-	private String saldoFormatado;
 	private LocalDate dataAbertura;
 	private Boolean status;
 	private String senha;
-	
-	NumberFormat nf = NumberFormat.getCurrencyInstance();
-
-	static final double taxaSaque = 0.10;
-	static final double taxaDeposito = 0.10;
-	static final double taxaTransferencia = 0.20;
+	double taxaSaque = 0.10;
+	double taxaDeposito = 0.10;
+	double taxaTransferencia = 0.20;
 
 	/* CONSTRUTOR PARA DIFERENTES TIPOS DE NOVAS CONTAS */
 	
-	private static int totalDeContas = 0;
-	
-	public Conta() {
-		 Conta.totalDeContas = Conta.totalDeContas + 1;
-	}
-	public void imprimirConta() {
-		System.out.println(this.totalDeContas);
-	}
-	public int getNumeroContas() {
-		return totalDeContas;
-	}
+//	private static int totalDeContas = 0;
+//	
+//	public Conta() {
+//		 Conta.totalDeContas = Conta.totalDeContas + 1;
+//	}
+//	public void imprimirConta() {
+//		System.out.println(this.totalDeContas);
+//	}
+//	public int getNumeroContas() {
+//		return totalDeContas;
+//	}
 	
 
 	public Conta(Integer idConta, String numeroAgencia, String tipoConta, String numeroConta, Double saldo,
@@ -57,7 +52,7 @@ public class Conta {
 		this.status = status;
 		this.senha = senha;
 		this.dataAbertura = LocalDate.now();
-		Conta.totalDeContas = Conta.totalDeContas + 1;
+		//Conta.totalDeContas = Conta.totalDeContas + 1;
 	}
 
 	/* GETTERS E SETTERS */
@@ -112,43 +107,64 @@ public class Conta {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
+	
+	public double getTaxaSaque() {
+		return taxaSaque;
+	}
+
+	public double getTaxaDeposito() {
+		return taxaDeposito;
+	}
+
+	public double getTaxaTransferencia() {
+		return taxaTransferencia;
+	}
+	
+
+	public Conta getCpfTitular() {
+		return cpfTitular;
+	}
 
 	/* MÉTODOS DA CONTA - TUDO QUE UMA CONTA CORRENTE E POUPANCA PODE REALIZAR */
-	public void sacar(double valor)
-			throws ValorInvalidoException, SaldoInsuficienteException, OperacaoNaoAutorizadaException {
+	public void sacar(Conta cpfTitular, double valor)
+			throws ValorInvalidoException, SaldoInsuficienteException, OperacaoNaoAutorizadaException, IOException {
 
-		if (status) {
+		if (Boolean.TRUE.equals(status)) {
 			if (valor <= 0) {
 				throw new ValorInvalidoException();
-			} else if (this.saldo < (valor + taxaSaque)) {
+			} else if (this.saldo < valor) {
 				throw new SaldoInsuficienteException();
 			} else {
-				this.saldo -= (valor + taxaSaque);
-			}
+				this.saldo -= valor;
+				exibirSaldo();
+				comprovanteSaque(cpfTitular,valor);
+				}
 		} else {
 			throw new OperacaoNaoAutorizadaException("Impossível sacar de uma conta fechada.");
 		}
 	}
 
 	public void depositar(double valor) throws ValorInvalidoException {
-		if (valor <= taxaDeposito) {
+		if (valor < 0) {
 			throw new ValorInvalidoException("Impossível depositar valores negativos.");
 		} else {
-			this.saldo += (valor - taxaDeposito);
+			this.saldo += valor;
+			exibirSaldo();
 		}
 
 	}
 
-	public void transferir(double valor, Conta destino) throws ValorInvalidoException, SaldoInsuficienteException, CpfInvalidoException, OperacaoNaoAutorizadaException {
+	public void transferir(double valor, Conta destino) throws ValorInvalidoException, SaldoInsuficienteException, CpfInvalidoException, OperacaoNaoAutorizadaException, IOException {
 		if (valor <= 0) {
 			throw new ValorInvalidoException("Impossível realizar transferência de valores negativos.");
 		}
-		else if (this.saldo < (valor + taxaTransferencia)) {
+		else if (this.saldo < (valor)) {
 			throw new SaldoInsuficienteException();
 		}
 		else {
-			sacar(valor + taxaTransferencia);
+			sacar(cpfTitular, valor);
 			destino.depositar(valor);
+			exibirSaldo();
 		}
 	}
 	
@@ -156,10 +172,10 @@ public class Conta {
 		System.out.printf("Saldo atual e disponível: R$ %.2f", this.saldo);
 	}
 	
-	public void relatorioTransacao(String tipoConta, String tipoTransacao, String cpf, double valor) throws IOException {
+	public void comprovanteSaque(Conta conta, double valor) throws IOException {
         
-		File diretorioRegistroTransacoes = new File ("C:\\RegistroTransacoesContas\\");
-        File historicoConta = new File (diretorioRegistroTransacoes.getAbsolutePath() + "\\historicoTransacoes.txt");
+		File diretorioRegistroTransacoes = new File ("./temp/");
+        File historicoConta = new File (diretorioRegistroTransacoes.getAbsolutePath() + "\\historicoSaques.txt");
 
         if (!diretorioRegistroTransacoes.exists()) {
         	diretorioRegistroTransacoes.mkdirs();  //cria um diretório
@@ -172,9 +188,10 @@ public class Conta {
        try(FileWriter historicoContaWriter = new FileWriter(historicoConta, true);
             BufferedWriter historicoContaBuff = new BufferedWriter(historicoContaWriter)) {
 
-    	   historicoContaBuff.append(tipoConta + "," + tipoTransacao + "," + this.cpfTitular + "," + valor + ".");
-  	      	   
+    	   historicoContaBuff.append("¨¨¨¨¨¨¨¨COMPROVANTE DE MOVIMENTAÇÃO¨¨¨¨¨¨¨¨¨");
     	   historicoContaBuff.newLine();
+    	   historicoContaBuff.append(conta.getCpfTitular() + "," + valor + ".");
+    	   
     	   
        } catch (IOException e) {
            System.out.println(e.getMessage());

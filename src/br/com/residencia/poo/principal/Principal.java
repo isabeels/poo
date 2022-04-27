@@ -1,5 +1,6 @@
 package br.com.residencia.poo.principal;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -18,7 +19,7 @@ import br.com.residencia.poo.pessoas.Presidente;
 
 public class Principal {
 
-	public static void main(String[] args) throws ValorInvalidoException, SaldoInsuficienteException, CpfInvalidoException, OperacaoNaoAutorizadaException {
+	public static void main(String[] args) throws ValorInvalidoException, SaldoInsuficienteException, CpfInvalidoException, OperacaoNaoAutorizadaException, IOException {
 		/* Lista contas */
 		List<Conta> contasAgenciaUm;
 		contasAgenciaUm = new ArrayList<Conta>();
@@ -69,7 +70,7 @@ public class Principal {
 		Date data = new Date();
 		System.out.println(data);
 		
-		conta2.depositar(200);
+		conta2.sacar(conta2.getCpfTitular(), 200);
 		System.out.println(conta2.toString());
 		
 		conta1.transferir(200, conta2);
