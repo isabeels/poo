@@ -10,13 +10,14 @@ import br.com.residencia.poo.exceptions.CpfInvalidoException;
 import br.com.residencia.poo.exceptions.OperacaoNaoAutorizadaException;
 import br.com.residencia.poo.exceptions.SaldoInsuficienteException;
 import br.com.residencia.poo.exceptions.ValorInvalidoException;
+import br.com.residencia.poo.pessoas.Pessoa;
 
 public class Conta {
 
 	/* ATRIBUTOS */
 	private Integer idConta;
 	private String numeroAgencia;
-	private Conta cpfTitular;
+	private Pessoa cpfTitular;
 	private String tipoConta;
 	private String numeroConta;
 	private Double saldo;
@@ -42,8 +43,9 @@ public class Conta {
 //	}
 	
 
-	public Conta(Integer idConta, String numeroAgencia, String tipoConta, String numeroConta, Double saldo,
+	public Conta(Pessoa cpfTitular, Integer idConta, String numeroAgencia, String tipoConta, String numeroConta, Double saldo,
 			Boolean status, String senha) {
+		this.cpfTitular = cpfTitular;
 		this.idConta = idConta;
 		this.numeroAgencia = numeroAgencia;
 		this.tipoConta = tipoConta;
@@ -121,12 +123,12 @@ public class Conta {
 	}
 	
 
-	public Conta getCpfTitular() {
+	public Pessoa getCpfTitular() {
 		return cpfTitular;
 	}
 
 	/* MÉTODOS DA CONTA - TUDO QUE UMA CONTA CORRENTE E POUPANCA PODE REALIZAR */
-	public void sacar(Conta cpfTitular, double valor)
+	public void sacar(Pessoa cpfTitular, double valor)
 			throws ValorInvalidoException, SaldoInsuficienteException, OperacaoNaoAutorizadaException, IOException {
 
 		if (Boolean.TRUE.equals(status)) {
@@ -172,7 +174,7 @@ public class Conta {
 		System.out.printf("Saldo atual e disponível: R$ %.2f", this.saldo);
 	}
 	
-	public void comprovanteSaque(Conta conta, double valor) throws IOException {
+	public void comprovanteSaque(Pessoa pessoa, double valor) throws IOException {
         
 		File diretorioRegistroTransacoes = new File ("./temp/");
         File historicoConta = new File (diretorioRegistroTransacoes.getAbsolutePath() + "\\historicoSaques.txt");
@@ -188,10 +190,16 @@ public class Conta {
        try(FileWriter historicoContaWriter = new FileWriter(historicoConta, true);
             BufferedWriter historicoContaBuff = new BufferedWriter(historicoContaWriter)) {
 
-    	   historicoContaBuff.append("¨¨¨¨¨¨¨¨COMPROVANTE DE MOVIMENTAÇÃO¨¨¨¨¨¨¨¨¨");
+    	   historicoContaBuff.append("¨¨¨¨¨¨¨¨¨¨COMPROVANTE DE SAQUE¨¨¨¨¨¨¨¨¨¨¨¨¨¨");
     	   historicoContaBuff.newLine();
-    	   historicoContaBuff.append(conta.getCpfTitular() + "," + valor + ".");
-    	   
+    	   historicoContaBuff.newLine();
+    	   historicoContaBuff.append(pessoa.getNome()+ ", CPF: " + pessoa.getCpf() + ", VALOR DO SAQUE: " + valor + ".");
+    	   historicoContaBuff.newLine();
+    	   historicoContaBuff.newLine();
+    	   historicoContaBuff.append("¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨");
+    	   historicoContaBuff.newLine();
+    	   historicoContaBuff.newLine();
+    	   historicoContaBuff.newLine();
     	   
        } catch (IOException e) {
            System.out.println(e.getMessage());
