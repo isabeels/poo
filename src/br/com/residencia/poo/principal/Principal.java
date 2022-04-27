@@ -15,6 +15,7 @@ import br.com.residencia.poo.pessoas.Cliente;
 import br.com.residencia.poo.pessoas.Diretor;
 import br.com.residencia.poo.pessoas.Funcionario;
 import br.com.residencia.poo.pessoas.Gerente;
+import br.com.residencia.poo.pessoas.Pessoa;
 import br.com.residencia.poo.pessoas.Presidente;
 
 public class Principal {
@@ -41,17 +42,21 @@ public class Principal {
 		
 		
 		/* Instanciação de contas */
-		Conta conta1 = new Conta(1, "3761", "Conta Corrente", "89121-5", 1000.00, true, "123");
+
+		Pessoa c1 = new Pessoa("Isabel", "feminino", "solteiro", "786543278", "98765272", "Rua das Flores", "isabel.s@gmail.com", null, "Tipopessoa");
+		
+		Conta conta1 = new Conta(c1,1, "3761", "Conta Corrente", "89121-5", 1000.00, true, "123");
 		System.out.println(conta1.toString());
 		contasAgenciaUm.add(conta1);
-		
-		Conta conta2 = new Conta(2, "1673", "Conta Corrente", "51219-8", 1000.00, true, "321");
+
+		Conta conta2 = new Conta(c1,2, "1673", "Conta Corrente", "51219-8", 1000.00, true, "321");
 		System.out.println(conta2.toString());
 		contasAgenciaUm.add(conta2);
-		
-		Conta conta3 = new Conta(3, "1699", "Conta Poupança", "55559-8", 1010.00, true, "321");
+
+		Conta conta3 = new Conta(c1,3, "1699", "Conta Poupança", "55559-8", 1010.00, true, "321");
 		contasAgenciaUm.add(conta3);
-		Conta conta4 = new Conta(4, "1545", "Conta Poupança", "51999-8", 2000.00, true, "321");
+		
+		Conta conta4 = new Conta(c1,4, "1545", "Conta Poupança", "51999-8", 2000.00, true, "321");
 		contasAgenciaUm.add(conta4);
 		
 		/* */
@@ -179,7 +184,7 @@ public class Principal {
 		System.out.println("\n\n\n\n");
 		//Rosana.emitirRelatorioContas();
 		//Gabriel.emitirRelatorioContas();
-		ag.emitirRelatorioContas();
+//		ag.emitirRelatorioContas();
 		
 		System.out.println("\n\n\n\n");
 		//Vinicius.emitirRelatorioAgencias();

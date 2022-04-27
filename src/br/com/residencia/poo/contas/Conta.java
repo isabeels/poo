@@ -45,7 +45,7 @@ public class Conta {
 //	}
 	
 
-	public Conta(Integer idConta, String numeroAgencia, String tipoConta, String numeroConta, Double saldo,
+	public Conta(Pessoa cpfTitular, Integer idConta, String numeroAgencia, String tipoConta, String numeroConta, Double saldo,
 			Boolean status, String senha) {
 		this.idConta = idConta;
 		this.numeroAgencia = numeroAgencia;
@@ -55,6 +55,8 @@ public class Conta {
 		this.status = status;
 		this.senha = senha;
 		this.dataAbertura = LocalDate.now();
+		this.cpfTitular = cpfTitular;
+		
 		//Conta.totalDeContas = Conta.totalDeContas + 1;
 	}
 
