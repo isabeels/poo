@@ -1,15 +1,16 @@
+จจจจจจจจจจCOMPROVANTE DE SAQUEจจจจจจจจจจจจจจ
+
+Isabel| CPF: 786543278| VALOR DO SAQUE: 200.0.
+
+Taxa de saque: R$ 0,10
+Total da tributa็ใo de taxas de saque: R$ 0,00
+จจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจ
 
 จจจจจจจจจจCOMPROVANTE DE SAQUEจจจจจจจจจจจจจจ
 
-Isabel, CPF: 786543278, VALOR DO SAQUE: 200.0.
+Isabel| CPF: 786543278| VALOR DO SAQUE: 200.0.
 
+Taxa de saque: R$ 0,10
+Total da tributa็ใo de taxas de saque: R$ 0,00
 จจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจ
-
-
-จจจจจจจจจจCOMPROVANTE DE SAQUEจจจจจจจจจจจจจจ
-
-Isabel, CPF: 786543278, VALOR DO SAQUE: 200.0.
-
-จจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจ
-
 

@@ -17,7 +17,7 @@ public class Conta {
 	/* ATRIBUTOS */
 	private Integer idConta;
 	private String numeroAgencia;
-	private Pessoa cpfTitular;
+	protected Pessoa cpfTitular;
 	private String tipoConta;
 	private String numeroConta;
 	private Double saldo;
@@ -27,6 +27,12 @@ public class Conta {
 	double taxaSaque = 0.10;
 	double taxaDeposito = 0.10;
 	double taxaTransferencia = 0.20;
+	double totalTaxaSaque = 0;
+	
+//	    protected Pessoa cpfTitular;
+//	    protected double saldo;
+//	    protected Agencia agencia;
+//	    protected static TipoConta tipo;
 
 	/* CONSTRUTOR PARA DIFERENTES TIPOS DE NOVAS CONTAS */
 	
@@ -126,6 +132,12 @@ public class Conta {
 	public Pessoa getCpfTitular() {
 		return cpfTitular;
 	}
+	
+
+	public double getTotalTaxaSaque() {
+		return totalTaxaSaque;
+	}
+
 
 	/* MÉTODOS DA CONTA - TUDO QUE UMA CONTA CORRENTE E POUPANCA PODE REALIZAR */
 	public void sacar(Pessoa cpfTitular, double valor)
@@ -140,6 +152,9 @@ public class Conta {
 				this.saldo -= valor;
 				exibirSaldo();
 				comprovanteSaque(cpfTitular,valor);
+			
+				this.totalTaxaSaque += taxaSaque;
+				
 				}
 		} else {
 			throw new OperacaoNaoAutorizadaException("Impossível sacar de uma conta fechada.");
@@ -193,13 +208,17 @@ public class Conta {
     	   historicoContaBuff.append("¨¨¨¨¨¨¨¨¨¨COMPROVANTE DE SAQUE¨¨¨¨¨¨¨¨¨¨¨¨¨¨");
     	   historicoContaBuff.newLine();
     	   historicoContaBuff.newLine();
-    	   historicoContaBuff.append(pessoa.getNome()+ ", CPF: " + pessoa.getCpf() + ", VALOR DO SAQUE: " + valor + ".");
+    	   historicoContaBuff.append(pessoa.getNome()+ "| CPF: " + pessoa.getCpf() + "| VALOR DO SAQUE: " + valor + ".");
     	   historicoContaBuff.newLine();
+    	   historicoContaBuff.newLine();
+    	   historicoContaBuff.append("Taxa de saque: R$ " + String.format("%.2f", taxaSaque));
+    	   historicoContaBuff.newLine();
+    	   historicoContaBuff.append("Total da tributação de taxas de saque: R$ " + String.format("%.2f", this.getTaxaSaque()));
     	   historicoContaBuff.newLine();
     	   historicoContaBuff.append("¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨");
     	   historicoContaBuff.newLine();
     	   historicoContaBuff.newLine();
-    	   historicoContaBuff.newLine();
+    	   
     	   
        } catch (IOException e) {
            System.out.println(e.getMessage());
