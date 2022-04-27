@@ -145,7 +145,7 @@ public class Conta {
 		System.out.printf("Saldo atual e disponível: R$ %.2f", this.saldo);
 	}
 	
-	public void relatorioTransacao(Conta conta, double valor, String cpfDestinatario) throws IOException {
+	public void relatorioTransacao(String tipoConta, String tipoTransacao, String cpf, double valor) throws IOException {
         
 		File diretorioRegistroTransacoes = new File ("C:\\RegistroTransacoesContas\\");
         File historicoConta = new File (diretorioRegistroTransacoes.getAbsolutePath() + "\\historicoTransacoes.txt");
@@ -161,7 +161,7 @@ public class Conta {
        try(FileWriter historicoContaWriter = new FileWriter(historicoConta, true);
             BufferedWriter historicoContaBuff = new BufferedWriter(historicoContaWriter)) {
 
-    	   historicoContaBuff.append("aqui vai entrar o conta.get puxando os comprovantes");
+    	   historicoContaBuff.append(tipoConta + "," + tipoTransacao + "," + this.cpfTitular + "," + valor + ".");
   	      	   
     	   historicoContaBuff.newLine();
     	   
