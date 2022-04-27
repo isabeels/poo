@@ -64,7 +64,7 @@ public class ContaCorrente extends Conta {
 	}
 
 	@Override
-	public void sacar(Conta conta, double valor)
+	public void sacar(Pessoa conta, double valor)
 			throws ValorInvalidoException, SaldoInsuficienteException, OperacaoNaoAutorizadaException, IOException {
 		super.sacar(valor + this.getTaxaSaque());
 	}
