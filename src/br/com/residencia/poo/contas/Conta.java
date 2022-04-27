@@ -155,6 +155,7 @@ public class Conta {
 			
 				this.totalTaxaSaque += taxaSaque;
 				
+				
 				}
 		} else {
 			throw new OperacaoNaoAutorizadaException("Impossível sacar de uma conta fechada.");
