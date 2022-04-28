@@ -15,6 +15,7 @@ public class ContaPoupanca extends Conta {
 	protected Integer idContaPoupanca;
 	protected LocalDate dataAbertura;
 	protected Double rendimento;
+	protected Integer dias;
 	private static final TipoConta tipoCP = TipoConta.POUPANCA;
 	private static final double JUROS = 0.001;
 
@@ -52,15 +53,19 @@ public class ContaPoupanca extends Conta {
 
 	/* MÉTODO PARA A CONTA POUPANCA */
 
-	public Double calcularRendimentos(double dinheiro, int dias) throws ValorInvalidoException {
+	public Double calcularRendimentos(Double dinheiro, Integer dias) throws ValorInvalidoException {
 		if (dinheiro <= 0) {
             throw new ValorInvalidoException("Não é possível simular com valores negativos.");
         } else if (dias <= 0) {
         	 throw new ValorInvalidoException("Não é possível simular com dias iguais ou menores que 0.");
         }
 		rendimento = dinheiro * (JUROS * dias);
+		this.dias = dias;
 		return rendimento;
 	}
+	void imprimir() {
+		System.out.printf("Rendeu %.02f R$ em %d dia(s)",rendimento, dias);
+}
 
 	@Override
 	public void sacar(Pessoa cpfTitular, double valor)
