@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.Date;
 
 import br.com.residencia.poo.exceptions.CpfInvalidoException;
 import br.com.residencia.poo.exceptions.OperacaoNaoAutorizadaException;
@@ -12,66 +13,36 @@ import br.com.residencia.poo.exceptions.SaldoInsuficienteException;
 import br.com.residencia.poo.exceptions.ValorInvalidoException;
 import br.com.residencia.poo.pessoas.Pessoa;
 
-public class Conta {
+public abstract class Conta {
 
 	/* ATRIBUTOS */
 	
 	protected Pessoa cpfTitular;
-	private Integer idConta;
-	private String numeroAgencia;
-	private String tipoConta;
-	private String numeroConta;
-	private Double saldo;
-	private LocalDate dataAbertura;
-	private Boolean status;
-	private String senha;
+	protected String numeroAgencia;
+	protected String tipoConta;
+	protected String numeroConta;
+	protected Double saldo = 0.0;
 	double taxaSaque = 0.10;
 	double taxaDeposito = 0.10;
 	double taxaTransferencia = 0.20;
 	double totalTaxaSaque = 0;
 
 	/* CONSTRUTOR PARA DIFERENTES TIPOS DE NOVAS CONTAS */
-	
-//	private static int totalDeContas = 0;
-//	
-//	public Conta() {
-//		 Conta.totalDeContas = Conta.totalDeContas + 1;
-//	}
-//	public void imprimirConta() {
-//		System.out.println(this.totalDeContas);
-//	}
-//	public int getNumeroContas() {
-//		return totalDeContas;2222222222
-//	}
-	
-
-	public Conta(Pessoa cpfTitular, Integer idConta, String numeroAgencia, String tipoConta, String numeroConta, Double saldo,
-			Boolean status, String senha) {
-		this.idConta = idConta;
-		this.numeroAgencia = numeroAgencia;
-		this.tipoConta = tipoConta;
-		this.numeroConta = numeroConta;
-		this.saldo = saldo;
-		this.status = status;
-		this.senha = senha;
-		this.dataAbertura = LocalDate.now();
-		this.cpfTitular = cpfTitular;
 		
-		//Conta.totalDeContas = Conta.totalDeContas + 1;
+	public Conta(Pessoa cpfTitular, String numeroAgencia, String numeroConta) {
+		this.cpfTitular = cpfTitular;
+		this.numeroAgencia = numeroAgencia;
+		this.numeroConta = numeroConta;
+		getSaldo();
 	}
-
+	
 	/* GETTERS E SETTERS */
-	public Integer getIdConta() {
-		return idConta;
-	}
+
 
 	public String getNumeroAgencia() {
 		return numeroAgencia;
 	}
 
-	public String getTipoConta() {
-		return tipoConta;
-	}
 
 	public String getNumeroConta() {
 		return numeroConta;
@@ -79,18 +50,6 @@ public class Conta {
 
 	public double getSaldo() {
 		return saldo;
-	}
-
-	public LocalDate getDataAbertura() {
-		return dataAbertura;
-	}
-
-	public Boolean getStatus() {
-		return status;
-	}
-
-	public String getSenha() {
-		return senha;
 	}
 
 	public void setNumeroAgencia(String numeroAgencia) {
@@ -104,14 +63,6 @@ public class Conta {
 	public void setNumeroConta(String numeroConta) {
 		this.numeroConta = numeroConta;
 	}
-
-	public void setStatus(Boolean status) {
-		this.status = status;
-	}
-
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
 	
 	public double getTaxaSaque() {
 		return taxaSaque;
@@ -124,7 +75,6 @@ public class Conta {
 	public double getTaxaTransferencia() {
 		return taxaTransferencia;
 	}
-	
 
 	public Pessoa getCpfTitular() {
 		return cpfTitular;
@@ -135,10 +85,7 @@ public class Conta {
 	}
 
 	/* MÉTODOS DA CONTA - TUDO QUE UMA CONTA CORRENTE E POUPANCA PODE REALIZAR */
-	public void sacar(Pessoa cpfTitular, double valor)
-			throws ValorInvalidoException, SaldoInsuficienteException, OperacaoNaoAutorizadaException, IOException {
-
-		if (Boolean.TRUE.equals(status)) {
+	public void sacar(Pessoa cpfTitular, double valor) throws ValorInvalidoException, SaldoInsuficienteException, IOException, OperacaoNaoAutorizadaException {
 			if (valor <= 0) {
 				throw new ValorInvalidoException();
 			} else if (this.saldo < valor) {
@@ -150,10 +97,7 @@ public class Conta {
 			
 				this.totalTaxaSaque += taxaSaque;
 				}
-		} else {
-			throw new OperacaoNaoAutorizadaException("Impossível sacar de uma conta fechada.");
-		}
-	}
+		} 
 
 	public void depositar(double valor) throws ValorInvalidoException {
 		if (valor < 0) {
@@ -218,12 +162,4 @@ public class Conta {
            System.out.println(e.getMessage());
        }
    }
-	
-	/* OVERRIDES */
-	@Override
-	public String toString() {
-		return "Número da agência: " + numeroAgencia + "\n" + "Tipo da conta: " + tipoConta + "\n" + "Número da conta: "
-				+ numeroConta + "\n" + "Saldo da conta: " + saldo + "\n" + "Data de abertura: " + dataAbertura
-				+ "\n" + "Status da conta: " + status + "\n";
-	}
 }

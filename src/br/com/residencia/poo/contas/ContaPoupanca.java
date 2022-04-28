@@ -1,24 +1,31 @@
 package br.com.residencia.poo.contas;
 
 import java.io.IOException;
-
+import java.time.LocalDate;
+import br.com.residencia.poo.enums.TipoConta;
 import br.com.residencia.poo.exceptions.CpfInvalidoException;
 import br.com.residencia.poo.exceptions.OperacaoNaoAutorizadaException;
 import br.com.residencia.poo.exceptions.SaldoInsuficienteException;
 import br.com.residencia.poo.exceptions.ValorInvalidoException;
+import br.com.residencia.poo.pessoas.Pessoa;
 
 public class ContaPoupanca extends Conta {
 
 	/* ATRIBUTOS */
 	protected Integer idContaPoupanca;
+	protected LocalDate dataAbertura;
 	protected Double rendimento;
+	private static final TipoConta tipoCP = TipoConta.POUPANCA;
 
 	/* CONSTRUTOR PARA INSTANCIAR NOVAS CONTAS POUPANCAS */
-	public ContaPoupanca(Integer idConta, String numeroAgencia, String tipoConta, String numeroConta, Double saldo,
-			Boolean status, String senha, Integer idContaPoupanca, Double rendimento) {
-		super(idConta, numeroAgencia, tipoConta, numeroConta, saldo, status, senha);
+	
+	public ContaPoupanca(Integer idContaPoupanca, Pessoa cpfTitular, String numeroAgencia, String numeroConta,
+			LocalDate dataAbertura) {
+		super(cpfTitular, numeroAgencia, numeroConta);
 		this.idContaPoupanca = idContaPoupanca;
-		this.rendimento = rendimento;
+		this.dataAbertura = LocalDate.now();
+		getTipocp();
+		getSaldo();
 	}
 
 	/* GETTERS E SETTERS */
@@ -37,6 +44,11 @@ public class ContaPoupanca extends Conta {
 	public void setRendimento(Double rendimento) {
 		this.rendimento = rendimento;
 	}
+	
+	public static TipoConta getTipocp() {
+		return tipoCP;
+	}
+
 
 	/* MÉTODO PARA A CONTA POUPANCA */
 
@@ -45,7 +57,7 @@ public class ContaPoupanca extends Conta {
 	}
 
 	@Override
-	public void sacar(Conta cpfTitular, double valor)
+	public void sacar(Pessoa cpfTitular, double valor)
 			throws ValorInvalidoException, SaldoInsuficienteException, OperacaoNaoAutorizadaException, IOException {
 		super.sacar(cpfTitular, valor);
 	}
@@ -61,5 +73,11 @@ public class ContaPoupanca extends Conta {
 		super.transferir(valor, destino);
 	}
 
-	
+	@Override
+	public String toString() {
+		return "ContaPoupanca [idContaPoupanca=" + idContaPoupanca + ", cpfTitular=" + cpfTitular + ", numeroAgencia="
+				+ numeroAgencia + ", tipoConta=" + tipoConta + ", numeroConta=" + numeroConta + ", dataAbertura="
+				+ dataAbertura + "]";
+	}
+
 }

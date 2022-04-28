@@ -62,7 +62,7 @@ public class Agencia {
 		}
 		System.out.println("__________________________________________");
 		System.out.println("Total de capital na Agencia: "+faturamentoTotal());
-		System.out.println("Total de contas na Agencia: "+contas.get(i-1).getNumeroContas());
+		System.out.println("Total de contas na Agencia: "+contas.get(i-1).getNumeroConta());
 		System.out.println("__________________________________________");
 	
 	}

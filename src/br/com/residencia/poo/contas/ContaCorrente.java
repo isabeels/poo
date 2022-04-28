@@ -1,26 +1,31 @@
 package br.com.residencia.poo.contas;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
+import br.com.residencia.poo.enums.TipoConta;
 import br.com.residencia.poo.exceptions.CpfInvalidoException;
 import br.com.residencia.poo.exceptions.OperacaoNaoAutorizadaException;
 import br.com.residencia.poo.exceptions.SaldoInsuficienteException;
 import br.com.residencia.poo.exceptions.ValorInvalidoException;
+import br.com.residencia.poo.pessoas.Pessoa;
 
 public class ContaCorrente extends Conta {
 
 	/* ATRIBUTOS */
 	protected Integer idContaCorrente;
-	protected Double chequeEspecial;
-	protected Double taxa;
+	protected LocalDate dataAbertura;
+	private static final TipoConta tipoCC = TipoConta.CORRENTE;
 
 	/* CONSTRUTOR PARA INSTANCIAR NOVAS CONTAS CORRENTES */
-	public ContaCorrente(Integer idConta, String numeroAgencia, String tipoConta, String numeroConta, Double saldo,
-			Boolean status, String senha, Integer idContaCorrente, Double chequeEspecial, Double taxa) {
-		super(idConta, numeroAgencia, tipoConta, numeroConta, saldo, status, senha);
+	
+
+	public ContaCorrente(Integer idContaCorrente, Pessoa cpfTitular, String numeroAgencia, String numeroConta) {
+		super(cpfTitular, numeroAgencia, numeroConta);
 		this.idContaCorrente = idContaCorrente;
-		this.chequeEspecial = chequeEspecial;
-		this.taxa = taxa;
+		this.dataAbertura = LocalDate.now();
+		getTipocc();
+		getSaldo();
 	}
 
 	/* GETTERS E SETTERS */
@@ -31,21 +36,9 @@ public class ContaCorrente extends Conta {
 	public void setIdContaCorrente(Integer idContaCorrente) {
 		this.idContaCorrente = idContaCorrente;
 	}
-
-	public Double getChequeEspecial() {
-		return chequeEspecial;
-	}
-
-	public void setChequeEspecial(Double chequeEspecial) {
-		this.chequeEspecial = chequeEspecial;
-	}
-
-	public Double getTaxa() {
-		return taxa;
-	}
-
-	public void setTaxa(Double taxa) {
-		this.taxa = taxa;
+	
+	public static TipoConta getTipocc() {
+		return tipoCC;
 	}
 
 	@Override
@@ -66,7 +59,7 @@ public class ContaCorrente extends Conta {
 	@Override
 	public void sacar(Pessoa conta, double valor)
 			throws ValorInvalidoException, SaldoInsuficienteException, OperacaoNaoAutorizadaException, IOException {
-		super.sacar(valor + this.getTaxaSaque());
+		super.sacar(cpfTitular, valor + this.getTaxaSaque());
 	}
 
 	@Override
@@ -84,8 +77,12 @@ public class ContaCorrente extends Conta {
 	public void exibirSaldo() {
 		super.exibirSaldo();
 	}
+
+	@Override
+	public String toString() {
+		return "ContaCorrente [idContaCorrente=" + idContaCorrente + ", cpfTitular=" + cpfTitular + ", numeroAgencia="
+				+ numeroAgencia + ", tipoConta=" + getTipocc() + ", numeroConta=" + numeroConta + ", saldo=" + saldo
+				+ ", dataAbertura=" + dataAbertura + "]";
+	}
+
 }
-
-	/* MÉTODOS DE UMA CONTA CORRENTE */
-
-

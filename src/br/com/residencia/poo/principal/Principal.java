@@ -7,6 +7,7 @@ import java.util.List;
 
 import br.com.residencia.poo.agencias.Agencia;
 import br.com.residencia.poo.contas.Conta;
+import br.com.residencia.poo.contas.ContaCorrente;
 import br.com.residencia.poo.exceptions.CpfInvalidoException;
 import br.com.residencia.poo.exceptions.OperacaoNaoAutorizadaException;
 import br.com.residencia.poo.exceptions.SaldoInsuficienteException;
@@ -43,21 +44,26 @@ public class Principal {
 		
 		/* Instanciação de contas */
 
-		Pessoa c1 = new Pessoa("Isabel", "feminino", "solteiro", "786543278", "98765272", "Rua das Flores", "isabel.s@gmail.com", null, "Tipopessoa");
+		Pessoa c1 = new Pessoa("Isabel", "98765272", "Tipopessoa");
 		
-		Conta conta1 = new Conta(c1,1, "3761", "Conta Corrente", "89121-5", 1000.00, true, "123");
-		System.out.println(conta1.toString());
-		contasAgenciaUm.add(conta1);
-
-		Conta conta2 = new Conta(c1,2, "1673", "Conta Corrente", "51219-8", 1000.00, true, "321");
-		System.out.println(conta2.toString());
-		contasAgenciaUm.add(conta2);
-
-		Conta conta3 = new Conta(c1,3, "1699", "Conta Poupança", "55559-8", 1010.00, true, "321");
-		contasAgenciaUm.add(conta3);
+		ContaCorrente cc1 = new ContaCorrente(001, c1, "2314", "0784086-1");
+		System.out.println(cc1.toString());
+		cc1.depositar(300);
+		System.out.println(cc1.toString());
 		
-		Conta conta4 = new Conta(c1,4, "1545", "Conta Poupança", "51999-8", 2000.00, true, "321");
-		contasAgenciaUm.add(conta4);
+//		Conta conta1 = new Conta(c1,1, "3761", "Conta Corrente", "89121-5", 1000.00, true, "123");
+//		System.out.println(conta1.toString());
+//		contasAgenciaUm.add(conta1);
+//
+//		Conta conta2 = new Conta(c1,2, "1673", "Conta Corrente", "51219-8", 1000.00, true, "321");
+//		System.out.println(conta2.toString());
+//		contasAgenciaUm.add(conta2);
+//
+//		Conta conta3 = new Conta(c1,3, "1699", "Conta Poupança", "55559-8", 1010.00, true, "321");
+//		contasAgenciaUm.add(conta3);
+//		
+//		Conta conta4 = new Conta(c1,4, "1545", "Conta Poupança", "51999-8", 2000.00, true, "321");
+//		contasAgenciaUm.add(conta4);
 		
 		/* */
 		
@@ -75,15 +81,15 @@ public class Principal {
 		Date data = new Date();
 		System.out.println(data);
 		
-		conta2.sacar(conta2.getCpfTitular(), 200);
-		System.out.println(conta2.toString());
-		
-		conta1.transferir(200, conta2);
-		System.out.println(conta1.toString());
-		System.out.println(conta2.toString());
-		
-		conta1.exibirSaldo();
-	
+//		conta2.sacar(conta2.getCpfTitular(), 200);
+//		System.out.println(conta2.toString());
+//		
+//		conta1.transferir(200, conta2);
+//		System.out.println(conta1.toString());
+//		System.out.println(conta2.toString());
+//		
+//		conta1.exibirSaldo();
+//	
 		/* Adicionar uma lista para guardar todas as agências instanciadas */
 		/* Sintaxe -> List<TIPO> nomedoobjeto = new LISTA<TIPO>; */
 		List<Agencia> agencias;
