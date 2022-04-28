@@ -5,31 +5,30 @@ import java.util.Date;
 public class Cliente extends Pessoa {
 
 	/* ATRIBUTOS */
-	protected Integer idCliente;
-	protected Integer idGerente;
+	protected String idCliente;
+	protected String idGerente;
 
 	/* CONSTRUTOR PARA INSTANCIAR NOVOS CLIENTES INVOCANDO A SUPERCLASSE PESSOA */
-	public Cliente(String nome, String genero, String estadoCivil, String cpf, String telefone, String endereco,
-			String email, Date dataNascimento, String tipoPessoa, Integer idCliente, Integer idGerente) {
-		super(nome, genero, estadoCivil, cpf, telefone, endereco, email, dataNascimento, tipoPessoa);
+	public Cliente(String nome, String cpf, String tipoPessoa,String idCliente,String idGerente) {
+		super(nome,cpf, tipoPessoa);
 		this.idCliente = idCliente;
 		this.idGerente = idGerente;
 	}
 
 	/* GETTERS E SETTERS */
-	public Integer getIdCliente() {
+	public String getIdCliente() {
 		return idCliente;
 	}
 
-	public void setIdCliente(Integer idCliente) {
+	public void setIdCliente(String idCliente) {
 		this.idCliente = idCliente;
 	}
 
-	public Integer getIdGerente() {
+	public String getIdGerente() {
 		return idGerente;
 	}
 
-	public void setIdGerente(Integer idGerente) {
+	public void setIdGerente(String idGerente) {
 		this.idGerente = idGerente;
 	}
 
