@@ -20,17 +20,17 @@ public class ContaCorrente extends Conta {
 	/* CONSTRUTOR PARA INSTANCIAR NOVAS CONTAS CORRENTES */
 	
 
-	public ContaCorrente(Integer idContaCorrente, Pessoa cpfTitular, String numeroAgencia, String numeroConta) {
-		super(cpfTitular, numeroAgencia, numeroConta);
-		this.idContaCorrente = idContaCorrente;
-		this.dataAbertura = LocalDate.now();
-		getTipocc();
-		getSaldo();
-	}
+	
+
 
 	/* GETTERS E SETTERS */
 	public Integer getIdContaCorrente() {
 		return idContaCorrente;
+	}
+
+	public ContaCorrente(String numeroAgencia, String numeroConta) {
+		super(numeroAgencia, numeroConta);
+		
 	}
 
 	public void setIdContaCorrente(Integer idContaCorrente) {

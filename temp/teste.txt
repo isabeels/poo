@@ -1,0 +1,12 @@
+Corrente,543,2456;
+Corrente,617,63749;
+Corrente,5627,274859;
+Corrente,8492,173094;
+Corrente,2940,298494;
+Corrente,2030,198301;
+Poupanca,7329,392832;
+Poupanca,3183,389134;
+Poupanca,3289,831019;
+Poupanca,3902,281934;
+Poupanca,2103,382009;
+Poupanca,8391,813910;

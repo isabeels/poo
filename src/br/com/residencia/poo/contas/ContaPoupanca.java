@@ -19,10 +19,9 @@ public class ContaPoupanca extends Conta {
 
 	/* CONSTRUTOR PARA INSTANCIAR NOVAS CONTAS POUPANCAS */
 	
-	public ContaPoupanca(Integer idContaPoupanca, Pessoa cpfTitular, String numeroAgencia, String numeroConta,
-			LocalDate dataAbertura) {
-		super(cpfTitular, numeroAgencia, numeroConta);
-		this.idContaPoupanca = idContaPoupanca;
+	public ContaPoupanca(String numeroAgencia, String numeroConta) {
+		super(numeroAgencia, numeroConta);
+		
 		this.dataAbertura = LocalDate.now();
 		getTipocp();
 		getSaldo();

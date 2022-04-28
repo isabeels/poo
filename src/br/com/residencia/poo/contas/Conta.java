@@ -29,8 +29,8 @@ public abstract class Conta {
 
 	/* CONSTRUTOR PARA DIFERENTES TIPOS DE NOVAS CONTAS */
 		
-	public Conta(Pessoa cpfTitular, String numeroAgencia, String numeroConta) {
-		this.cpfTitular = cpfTitular;
+	public Conta(String numeroAgencia, String numeroConta) {
+		
 		this.numeroAgencia = numeroAgencia;
 		this.numeroConta = numeroConta;
 		getSaldo();
@@ -38,6 +38,8 @@ public abstract class Conta {
 	
 	/* GETTERS E SETTERS */
 
+
+	
 
 	public String getNumeroAgencia() {
 		return numeroAgencia;
