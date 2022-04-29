@@ -5,6 +5,8 @@ import java.util.InputMismatchException;
 
 import br.com.residencia.poo.io.LeituraEscrita;
 import br.com.residencia.poo.contas.Conta;
+import br.com.residencia.poo.enums.TipoConta;
+import br.com.residencia.poo.enums.TipoPessoa;
 import br.com.residencia.poo.exceptions.ContaException;
 import br.com.residencia.poo.pessoas.Usuario;
 import br.com.residencia.poo.principal.Principal;
@@ -61,7 +63,8 @@ public class MenuPrincipal {
 				break;
 				
 			case 3:
-			
+				principal.imprimeLinhaHorizontal();
+				System.out.print("O valor do seu Saldo é  " + this.saldo);
 			case 4:
 			
 			case 5:
