@@ -64,7 +64,7 @@ public class MenuPrincipal {
 				
 			case 3:
 				principal.imprimeLinhaHorizontal();
-				System.out.print("O valor do seu Saldo é  " + this.saldo);
+				System.out.println("O valor do seu Saldo é  " + conta.getSaldo());
 			case 4:
 			
 			case 5:
