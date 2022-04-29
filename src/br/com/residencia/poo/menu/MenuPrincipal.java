@@ -22,9 +22,12 @@ public class MenuPrincipal {
 		try {
 
 			principal.pulaLinha();
-			System.out.println("[1]\tSaque");
-			System.out.println("[2]\tDeposito");
-			System.out.println("[3]\tSair");
+			System.out.println("[1]\tSAQUE");
+			System.out.println("[2]\tDEPÓSITO");
+			System.out.println("[3]\tTRANSFERÊNCIA");
+			System.out.println("[4]\tSALDO");
+			System.out.println("[5]\tRELATÓRIO");
+			System.out.println("[6]\tSAIR");
 			principal.imprimeLinhaHorizontal();
 
 			System.out.print("Digite a opção desejada: ");
@@ -56,7 +59,14 @@ public class MenuPrincipal {
 				principal.pulaLinha();
 
 				break;
+				
 			case 3:
+			
+			case 4:
+			
+			case 5:
+				
+			case 6:
 				principal.limpaTela();
 				principal.menuInterativo();
 				break;
