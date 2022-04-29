@@ -1,6 +1,5 @@
 package br.com.residencia.poo.pessoas;
 
-import java.util.Date;
 
 public class Cliente extends Usuario {
 

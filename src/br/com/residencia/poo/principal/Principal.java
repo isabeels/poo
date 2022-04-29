@@ -1,182 +1,110 @@
 package br.com.residencia.poo.principal;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.InputMismatchException;
+import java.util.Scanner;
 
-import br.com.residencia.poo.agencias.Agencia;
 import br.com.residencia.poo.contas.Conta;
-import br.com.residencia.poo.contas.ContaCorrente;
-import br.com.residencia.poo.contas.ContaPoupanca;
-import br.com.residencia.poo.exceptions.CpfInvalidoException;
-import br.com.residencia.poo.exceptions.OperacaoNaoAutorizadaException;
-import br.com.residencia.poo.exceptions.SaldoInsuficienteException;
-import br.com.residencia.poo.exceptions.ValorInvalidoException;
-import br.com.residencia.poo.pessoas.Cliente;
-import br.com.residencia.poo.pessoas.Diretor;
-import br.com.residencia.poo.pessoas.Funcionario;
-import br.com.residencia.poo.pessoas.Gerente;
-import br.com.residencia.poo.pessoas.Pessoa;
-import br.com.residencia.poo.pessoas.Presidente;
+import br.com.residencia.poo.exceptions.ContaException;
+import br.com.residencia.poo.menu.MenuPrincipal;
+import br.com.residencia.poo.pessoas.Usuario;
 
 public class Principal {
+	
+	public char operacao;
+	public double valor;
+	public String inputCpf;
+	public String inputSenha;
+	public static Scanner sc = new Scanner(System.in);
+	MenuPrincipal menuPrincipal = new MenuPrincipal();
 
-	public static void main(String[] args) throws ValorInvalidoException, SaldoInsuficienteException, CpfInvalidoException, OperacaoNaoAutorizadaException, IOException {
-		/* Lista contas */
-		List<Conta> contasAgenciaUm;
-		contasAgenciaUm = new ArrayList<Conta>();
-		List<Conta> contasAgenciaDois;
-		contasAgenciaDois= new ArrayList<Conta>();
-		
-		/* Lista diretor */
-		List<Diretor> diretores;
-		diretores = new ArrayList<Diretor>();
-		
-		/* Lista gerencia*/
-		List<Gerente> gerentes;
-		gerentes = new ArrayList<Gerente>();
-		
-		/* Lista Clientes */
-		List<Cliente> clientes;
-		clientes = new ArrayList<Cliente>();
-		
-		
-//								   |
-		/* Instanciação de contas \|/ (pode apagar, se precisar) */
+	public void menuInterativo() throws ContaException, NullPointerException, InputMismatchException {
+		try {
 
-		Pessoa p1 = new Pessoa("Isabel", "617.781.430-16", "Gerente");
-		Pessoa p2 = new Pessoa("Vinicius", "918.487.130-02", "Gerente");
-		Pessoa p3 = new Pessoa ("Gabriel", "338.720.490-62", "Gerente");
-		Pessoa p4 = new Pessoa ("Rosana", "169.269.810-94", "Gerente");
-		Pessoa p5 = new Pessoa ("Charlles", "722.003.340-01", "Gerente");
-		Pessoa p6 = new Pessoa ("Flavio", "693.842.680-54", "Gerente");
-		
-		ContaCorrente cc1 = new ContaCorrente(p1, "2314", "0784086-1");
-		System.out.println(cc1.toString());
-		cc1.depositar(300);
-		System.out.println(cc1.toString());
-		
-		ContaCorrente cc2 = new ContaCorrente(p2, "4132", "1680487-0");
-		System.out.println(cc2.toString());
-		cc2.depositar(2545);
-		System.out.println(cc2.toString());
-		
-		ContaPoupanca cc3 = new ContaPoupanca(p3, "3605", "1010177-8");
-		System.out.println(cc3.toString());
-		cc3.depositar(2623);
-		System.out.println(cc3.toString());
-		
-		ContaPoupanca cc4 = new ContaPoupanca(p4, "5873", "7526394-4");
-		System.out.println(cc4.toString());
-		cc4.depositar(6253);
-		System.out.println(cc4.toString());
-		
+			imprimeLinhaHorizontal();
+			
+			System.out.print("Digite seu CPF: ");
+			inputCpf = sc.next();
+			System.out.print("Digite sua senha: ");
+			inputSenha = sc.next();
 
-		/* Adicionar uma lista para guardar todas as agências instanciadas */
-		/* Sintaxe -> List<TIPO> nomedoobjeto = new LISTA<TIPO>; */
-		List<Agencia> agencias;
-		agencias = new ArrayList<Agencia>();
-		
-		/* Instanciação de agência */
-		Agencia ag = new Agencia(1, "Avenida das Palmeiras", 1000, 1005, 1001,contasAgenciaUm);
-		agencias.add(ag);
-		
-		Agencia age = new Agencia(1, "Avenida do Aconchego", 1000, 1000, 1002,contasAgenciaUm);
-		agencias.add(age);
+			Usuario usuario = Usuario.mapaUsuarios.get(inputCpf);
 
-		
-		
-		
-		//INSTANCIAÇÃO DOS FUNCIONÁRIOS
-		
-		/* Gerente Gabriel */
-//		Gerente Gabriel = new Gerente("Gabriel", "todos","Casado", "1112223334", "22-999093552", "Rua da paixão",
-//				"gabrieltsf10@gmail.com", data , "gerente", 2, "gabriel1", "gabriellocao",
-//				127.000, "Gerente geral", 1004, 1005, contasAgenciaUm);
-//		gerentes.add(Gabriel);
-//		
-//		
-//		/* Gerente Rosana */
-//		Gerente Rosana = new Gerente("Rosana", "Sem gênero definido","Casada", "1112220004", "22-23252718", "Estrada novo circuito",
-//				"dantasdoqa@gmail.com", data , "gerente", 2, "gabriel1", "gabriellocao",
-//				127.000, "Gerente geral", 1005, 1000, contasAgenciaUm);
-//		gerentes.add(Rosana);
-//		
-//		
-//		/* Diretor Vinícius */
-//		Diretor Vinicius = new Diretor("Vinicin", "Não supomos genero", "Casado", "123999666-6", "22-1313131313", "Rua do cruzeiro",
-//				"vinivspdasgata@gmail.com", data , "diretor", 1001, "palhaço1", "fazumapalhaçadinha",
-//				17.99, "Diretor geral das palhaçadinha", 1000, agencias, gerentes);
-//		diretores.add(Vinicius);
-//		
-//		/* Presidenta Isabel */
-//		Presidente Isabel = new Presidente("Isabel", "Ela/Dela", "Casada", "Informação Oculta", "21-1313131313", "Rua da Liderança",
-//			"devsixlider@devsix.br", data, "Presidente", 13, "adminlider", "naoousehackearapresidenta",
-//			199_488_130.12, "Presidente", 1, diretores);
-		
+			Conta conta = Conta.mapaContas.get(inputCpf);
 
-		/* Instanciação de clientes */
-//		Cliente Harumi = new Cliente("Harumi Hiroshi Jun", "Elu/Delu", "Casade", "9997775544", "21-87674552", "Kenji Akira Abenyu",
-//				"youtube@gmail.com", data, "Cliente", 2, 1005);
-//		clientes.add(Harumi);
-//		Cliente Lesheshenko = new Cliente("Lesheshenko Plushchenko", "Elu/Delu", "Casade", "9997775544", "21-87674552", "Romaniuk Avenue",
-//				"ukraineliberationarmy@gmail.com", data, "Cliente", 2, 1005);
-//		clientes.add(Lesheshenko);
-//		Cliente HarumotoYakasaki = new Cliente("HarumotoYakasaki", "Elu/Delu", "Casade", "9997775544", "21-87674552", "Tsumago-juku",
-//				"tsumagojuku@gmail.com.jp", data, "Cliente", 3, 1005);
-//		clientes.add(HarumotoYakasaki);
-//		Cliente Wladimir = new Cliente("Wladimir BERELOWITCH", "Elu/Delu", "Solteire", "9997775544", "21-87674552", "Nikolai Dimitri Street",
-//				"russianvodkaforfree@gmail.com", data, "Cliente/Vendedor de Vodka", 4, 1005);
-//		clientes.add(Wladimir);
-//		Cliente Kwasi = new Cliente("Kwasi Oppong", "Elu/Delu", "Casade", "9997775544", "21-87674552", "Fumesua-Kokobra",
-//				"shumetsu@gmail.com", data, "Cliente", 5, 1005);
-//		clientes.add(Kwasi);
-//		Cliente Yousaf = new Cliente("Yousaf Manzil", "Elu/Delu", "Casade", "9997775544", "21-87674552", "Malik-Salam",
-//				"shumetsu@gmail.com", data, "Cliente", 5, 1005);
-//		clientes.add(Yousaf);
-//		Cliente Chaikinoy = new Cliente("Chaikinoy", "Elu/Delu", "Casade", "9997775544", "21-87674552", "Rua árabe",
-//				"shumetsu@gmail.com", data, "Cliente", 5, 1005);
-//		clientes.add(Chaikinoy);
-//		
-		
-		System.out.print("\n");
-		/* Output dos clientes */
-		for(int i=0;i<clientes.size();i++) {
-			System.out.println("Cliente "+(i+1)+": ");
-			System.out.print(clientes.get(i).getNome()+"\n");
+			while (usuario == null || !(usuario.getSenha().equalsIgnoreCase(inputSenha))) {
+				System.out.println("CPF e/ou Senha incorreto(s)\n\n");
+
+				System.out.print("Digite seu CPF: ");
+				inputCpf = sc.next();
+				System.out.print("Digite sua senha: ");
+				inputSenha = sc.next();
+
+				usuario = Usuario.mapaUsuarios.get(inputCpf);
+
+				conta = Conta.mapaContas.get(inputCpf);
+			}
+
+			limpaTela();
+			subMenu(usuario, conta);
+
+			imprimeLinhaHorizontal();
+
+		} catch (ContaException e) {
+			System.out.println(e.getMessage());
+		} catch (NullPointerException e) {
+			System.out.println(e.getMessage());
+		} catch (InputMismatchException e) {
+			System.out.println(e.getMessage());
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			menuInterativo();
 		}
-		System.out.print("\n");
-		/* Output dos Gerentes */
-		for(int i=0;i<gerentes.size();i++) {
-			System.out.println("Gerente "+(i+1)+": ");
-			System.out.println(gerentes.get(i).getNome()+"\n");
-		}
-		System.out.print("\n");
-		
-		/* Output dos Diretores */
-		for(int i=0;i<diretores.size();i++) {
-			System.out.println("Diretor "+(i+1)+": ");
-			System.out.print(diretores.get(i).getNome()+"\n");
-		}
-		System.out.print("\n");
-		
-		/* Output das Agencias */
-		//for(int i=0;i<agencias.size();i++) {
-		//	System.out.println("Agencia "+(i+1)+": ");
-		//	System.out.println(agencias.get(i).getIdAgencia()+"\n");
-		//}
-		
-		
-		System.out.println("\n\n\n\n");
-		//Rosana.emitirRelatorioContas();
-		//Gabriel.emitirRelatorioContas();
-//		ag.emitirRelatorioContas();
-		
-		System.out.println("\n\n\n\n");
-		//Vinicius.emitirRelatorioAgencias();
-		
-
+		sc.close();
 	}
 
+	// SUBMENU
+	public void subMenu(Usuario usuario, Conta conta)
+			throws ContaException, NullPointerException, InputMismatchException, IOException {
+
+		try {
+
+			imprimeLinhaHorizontal();
+			System.out.println("Bem-vindo(a) ao seu Banco, " + usuario.getNome() + "!\n");
+			imprimeLinhaHorizontal();
+			System.out.println("Digite o número correspondente à operação desejada:");
+
+			MenuPrincipal.menuPrincipal(usuario, conta);
+
+		} catch (ContaException e) {
+			System.out.println(e.getMessage());
+		} catch (NullPointerException e) {
+			System.out.println(e.getMessage());
+		} catch (InputMismatchException e) {
+			System.out.println(e.getMessage());
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			subMenu(usuario, conta);
+		}
+	
+	MenuPrincipal.menuPrincipal(usuario, conta);
+	}
+	
+	public void pulaLinha() {
+		for (int i = 0; i < 3; i++) {
+			System.out.println();
+		}
+	}
+
+	public void limpaTela() {
+		for (int i = 0; i < 50; i++) {
+			System.out.println();
+		}
+	}
+
+	public void imprimeLinhaHorizontal() {
+		System.out.println("--------------------------------------------------");
+	}
 }
