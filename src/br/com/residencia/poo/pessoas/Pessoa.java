@@ -11,7 +11,6 @@ public class Pessoa {
 
 	/* CONSTRUTOR PARA INSTANCIAR NOVAS PESSOAS */
 	public Pessoa(String nome, String cpf, String tipoPessoa) {
-
 		this.nome = nome;
 		this.cpf = cpf;
 		this.tipoPessoa = tipoPessoa;

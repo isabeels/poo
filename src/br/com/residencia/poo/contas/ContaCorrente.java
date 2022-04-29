@@ -13,28 +13,22 @@ import br.com.residencia.poo.pessoas.Pessoa;
 public class ContaCorrente extends Conta {
 
 	/* ATRIBUTOS */
-	protected Integer idContaCorrente;
+	protected static Integer idContaCorrente= 0;
 	protected LocalDate dataAbertura;
 	private static final TipoConta tipoCC = TipoConta.CORRENTE;
 
 	/* CONSTRUTOR PARA INSTANCIAR NOVAS CONTAS CORRENTES */
 	
-
+	public ContaCorrente(Pessoa cpfTitular, String numeroAgencia, String numeroConta) {
+		super(cpfTitular, numeroAgencia, numeroConta);
+		incrementarID();
+		getTipocc();
+		dataAbertura = LocalDate.now();
+	}
 	
-
-
 	/* GETTERS E SETTERS */
 	public Integer getIdContaCorrente() {
 		return idContaCorrente;
-	}
-
-	public ContaCorrente(String numeroAgencia, String numeroConta) {
-		super(numeroAgencia, numeroConta);
-		
-	}
-
-	public void setIdContaCorrente(Integer idContaCorrente) {
-		this.idContaCorrente = idContaCorrente;
 	}
 	
 	public static TipoConta getTipocc() {
@@ -55,7 +49,12 @@ public class ContaCorrente extends Conta {
 	public double getTaxaTransferencia() {
 		return super.getTaxaTransferencia();
 	}
-
+	/* METODOS */
+	
+	public Integer incrementarID() {
+		return idContaCorrente++;
+	}
+	
 	@Override
 	public void sacar(Pessoa conta, double valor)
 			throws ValorInvalidoException, SaldoInsuficienteException, OperacaoNaoAutorizadaException, IOException {
@@ -80,9 +79,8 @@ public class ContaCorrente extends Conta {
 
 	@Override
 	public String toString() {
-		return "ContaCorrente [idContaCorrente=" + idContaCorrente + ", cpfTitular=" + cpfTitular + ", numeroAgencia="
-				+ numeroAgencia + ", tipoConta=" + getTipocc() + ", numeroConta=" + numeroConta + ", saldo=" + saldo
-				+ ", dataAbertura=" + dataAbertura + "]";
+		return "[ Conta Corrente ID: " + idContaCorrente + " | CPF do titular: " + this.cpfTitular.getCpf() + " | Número da agência: "
+				+ numeroAgencia + " | Tipo de conta: " + getTipocc() + " | Número da Conta: " + numeroConta + " | Data de abertura: "
+				+ dataAbertura + " | Saldo atual: " + saldo + " R$ ]";
 	}
-
 }

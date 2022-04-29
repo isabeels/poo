@@ -4,8 +4,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDate;
-import java.util.Date;
 
 import br.com.residencia.poo.exceptions.CpfInvalidoException;
 import br.com.residencia.poo.exceptions.OperacaoNaoAutorizadaException;
@@ -29,17 +27,13 @@ public abstract class Conta {
 
 	/* CONSTRUTOR PARA DIFERENTES TIPOS DE NOVAS CONTAS */
 		
-	public Conta(String numeroAgencia, String numeroConta) {
-		
+	public Conta(Pessoa cpfTitular, String numeroAgencia, String numeroConta) {
+		this.cpfTitular = cpfTitular;
 		this.numeroAgencia = numeroAgencia;
 		this.numeroConta = numeroConta;
-		getSaldo();
 	}
 	
 	/* GETTERS E SETTERS */
-
-
-	
 
 	public String getNumeroAgencia() {
 		return numeroAgencia;
@@ -106,7 +100,7 @@ public abstract class Conta {
 			throw new ValorInvalidoException("Impossํvel depositar valores negativos.");
 		} else {
 			this.saldo += valor;
-			exibirSaldo();
+//			exibirSaldo();
 		}
 
 	}
@@ -158,10 +152,10 @@ public abstract class Conta {
     	   historicoContaBuff.append("จจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจ");
     	   historicoContaBuff.newLine();
     	   historicoContaBuff.newLine();
-    	   
-    	   
+    	   	   
        } catch (IOException e) {
            System.out.println(e.getMessage());
        }
    }
+
 }

@@ -12,7 +12,7 @@ import br.com.residencia.poo.pessoas.Pessoa;
 public class ContaPoupanca extends Conta {
 
 	/* ATRIBUTOS */
-	protected Integer idContaPoupanca;
+	protected static Integer idContaPoupanca = 0;
 	protected LocalDate dataAbertura;
 	protected Double rendimento;
 	protected Integer dias;
@@ -21,13 +21,13 @@ public class ContaPoupanca extends Conta {
 
 	/* CONSTRUTOR PARA INSTANCIAR NOVAS CONTAS POUPANCAS */
 	
-	public ContaPoupanca(String numeroAgencia, String numeroConta) {
-		super(numeroAgencia, numeroConta);
-		
-		this.dataAbertura = LocalDate.now();
+	public ContaPoupanca(Pessoa cpfTitular, String numeroAgencia, String numeroConta) {
+		super(cpfTitular, numeroAgencia, numeroConta);
+		incrementarID();
 		getTipocp();
-		getSaldo();
+		dataAbertura = LocalDate.now();
 	}
+
 
 	/* GETTERS E SETTERS */
 	public Integer getIdContaPoupanca() {
@@ -65,8 +65,12 @@ public class ContaPoupanca extends Conta {
 	}
 	void imprimir() {
 		System.out.printf("Rendeu %.02f R$ em %d dia(s)",rendimento, dias);
-}
+}	
 
+	public Integer incrementarID() {
+		return idContaPoupanca++;
+	}
+	
 	@Override
 	public void sacar(Pessoa cpfTitular, double valor)
 			throws ValorInvalidoException, SaldoInsuficienteException, OperacaoNaoAutorizadaException, IOException {
@@ -86,9 +90,8 @@ public class ContaPoupanca extends Conta {
 
 	@Override
 	public String toString() {
-		return "ContaPoupanca [idContaPoupanca=" + idContaPoupanca + ", cpfTitular=" + cpfTitular + ", numeroAgencia="
-				+ numeroAgencia + ", tipoConta=" + tipoConta + ", numeroConta=" + numeroConta + ", dataAbertura="
-				+ dataAbertura + "]";
+		return "[ Conta Poupanca ID: " + idContaPoupanca + " | CPF do titular: " + this.cpfTitular.getCpf() + " | Número da agência: "
+				+ numeroAgencia + " | Tipo de conta: " + getTipocp() + " | Número da Conta: " + numeroConta + " | Data de abertura: "
+				+ dataAbertura + " | Saldo atual: " + saldo + " R$ ]";
 	}
-
 }
