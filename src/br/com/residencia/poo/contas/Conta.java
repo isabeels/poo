@@ -1,161 +1,73 @@
 package br.com.residencia.poo.contas;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
-import br.com.residencia.poo.exceptions.CpfInvalidoException;
-import br.com.residencia.poo.exceptions.OperacaoNaoAutorizadaException;
-import br.com.residencia.poo.exceptions.SaldoInsuficienteException;
-import br.com.residencia.poo.exceptions.ValorInvalidoException;
-import br.com.residencia.poo.pessoas.Pessoa;
-
-public abstract class Conta {
-
-	/* ATRIBUTOS */
-	
-	protected Pessoa cpfTitular;
-	protected String numeroAgencia;
+public abstract class Conta implements Transacao {
 	protected String tipoConta;
-	protected String numeroConta;
-	protected Double saldo = 0.0;
-	double taxaSaque = 0.10;
-	double taxaDeposito = 0.10;
-	double taxaTransferencia = 0.20;
-	double totalTaxaSaque = 0;
+	protected Integer numeroAgencia;
+	protected Integer numeroConta;
+	protected Double saldo;
+	protected String cpf;
 
-	/* CONSTRUTOR PARA DIFERENTES TIPOS DE NOVAS CONTAS */
-		
-	public Conta(Pessoa cpfTitular, String numeroAgencia, String numeroConta) {
-		this.cpfTitular = cpfTitular;
+	public static Map<String, Conta> mapaContas = new HashMap<>();
+//	Set<Integer> agencias = new HashSet<>();
+
+	public Conta() {
+	}
+
+	public Conta(String tipoConta, Integer numeroAgencia, Integer numeroConta, Double saldo, String cpf) {
+		this.tipoConta = tipoConta;
 		this.numeroAgencia = numeroAgencia;
 		this.numeroConta = numeroConta;
-	}
-	
-	/* GETTERS E SETTERS */
-
-	public String getNumeroAgencia() {
-		return numeroAgencia;
+		this.saldo = saldo;
+		this.cpf = cpf;
 	}
 
-
-	public String getNumeroConta() {
-		return numeroConta;
-	}
-
-	public double getSaldo() {
-		return saldo;
-	}
-
-	public void setNumeroAgencia(String numeroAgencia) {
-		this.numeroAgencia = numeroAgencia;
+	public String getTipoConta() {
+		return this.tipoConta;
 	}
 
 	public void setTipoConta(String tipoConta) {
 		this.tipoConta = tipoConta;
 	}
 
-	public void setNumeroConta(String numeroConta) {
+	public Integer getNumeroAgencia() {
+		return this.numeroAgencia;
+	}
+
+	public void setNumeroAgencia(Integer numeroAgencia) {
+		this.numeroAgencia = numeroAgencia;
+	}
+
+	public Integer getNumeroConta() {
+		return this.numeroConta;
+	}
+
+	public void setNumeroConta(Integer numeroConta) {
 		this.numeroConta = numeroConta;
 	}
-	
-	public double getTaxaSaque() {
-		return taxaSaque;
+
+	public Double getSaldo() {
+		return this.saldo;
 	}
 
-	public double getTaxaDeposito() {
-		return taxaDeposito;
+	public void setSaldo(Double saldo) {
+		this.saldo = saldo;
 	}
 
-	public double getTaxaTransferencia() {
-		return taxaTransferencia;
+	public String getCpf() {
+		return this.cpf;
 	}
 
-	public Pessoa getCpfTitular() {
-		return cpfTitular;
-	}
-	
-	public double getTotalTaxaSaque() {
-		return totalTaxaSaque;
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
 	}
 
-	/* MÉTODOS DA CONTA - TUDO QUE UMA CONTA CORRENTE E POUPANCA PODE REALIZAR */
-	public void sacar(Pessoa cpfTitular, double valor) throws ValorInvalidoException, SaldoInsuficienteException, IOException, OperacaoNaoAutorizadaException {
-			if (valor <= 0) {
-				throw new ValorInvalidoException();
-			} else if (this.saldo < valor) {
-				throw new SaldoInsuficienteException();
-			} else {
-				this.saldo -= valor;
-				exibirSaldo();
-				comprovanteSaque(cpfTitular,valor);
-			
-				this.totalTaxaSaque += taxaSaque;
-				}
-		} 
-
-	public void depositar(double valor) throws ValorInvalidoException {
-		if (valor < 0) {
-			throw new ValorInvalidoException("Impossível depositar valores negativos.");
-		} else {
-			this.saldo += valor;
-//			exibirSaldo();
-		}
-
+	@Override
+	public String toString() {
+		return "Conta [tipoConta=" + this.tipoConta + ", numeroAgencia=" + this.numeroAgencia + ", numeroConta="
+				+ this.numeroConta + ", saldo=" + this.saldo + "cpf=" + this.cpf + "]";
 	}
-
-	public void transferir(double valor, Conta destino) throws ValorInvalidoException, SaldoInsuficienteException, CpfInvalidoException, OperacaoNaoAutorizadaException, IOException {
-		if (valor <= 0) {
-			throw new ValorInvalidoException("Impossível realizar transferência de valores negativos.");
-		}
-		else if (this.saldo < (valor)) {
-			throw new SaldoInsuficienteException();
-		}
-		else {
-			sacar(cpfTitular, valor);
-			destino.depositar(valor);
-			exibirSaldo();
-		}
-	}
-	
-	public void exibirSaldo() {
-		System.out.printf("Saldo atual e disponível: R$ %.2f", this.saldo);
-	}
-	
-	public void comprovanteSaque(Pessoa pessoa, double valor) throws IOException {
-        
-		File diretorioRegistroTransacoes = new File ("./temp/");
-        File historicoConta = new File (diretorioRegistroTransacoes.getAbsolutePath() + "\\historicoSaques.txt");
-
-        if (!diretorioRegistroTransacoes.exists()) {
-        	diretorioRegistroTransacoes.mkdirs();  //cria um diretório
-       }
-
-        if(!historicoConta.exists()) {
-        	historicoConta.createNewFile();  //cria um arquivo
-        }
-
-       try(FileWriter historicoContaWriter = new FileWriter(historicoConta, true);
-            BufferedWriter historicoContaBuff = new BufferedWriter(historicoContaWriter)) {
-
-    	   historicoContaBuff.append("¨¨¨¨¨¨¨¨¨¨COMPROVANTE DE SAQUE¨¨¨¨¨¨¨¨¨¨¨¨¨¨");
-    	   historicoContaBuff.newLine();
-    	   historicoContaBuff.newLine();
-    	   historicoContaBuff.append(pessoa.getNome()+ "| CPF: " + pessoa.getCpf() + "| VALOR DO SAQUE: " + valor + ".");
-    	   historicoContaBuff.newLine();
-    	   historicoContaBuff.newLine();
-    	   historicoContaBuff.append("Taxa de saque: R$ " + String.format("%.2f", taxaSaque));
-    	   historicoContaBuff.newLine();
-    	   historicoContaBuff.append("Total da tributação de taxas de saque: R$ " + String.format("%.2f", this.getTaxaSaque()));
-    	   historicoContaBuff.newLine();
-    	   historicoContaBuff.append("¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨");
-    	   historicoContaBuff.newLine();
-    	   historicoContaBuff.newLine();
-    	   	   
-       } catch (IOException e) {
-           System.out.println(e.getMessage());
-       }
-   }
 
 }
