@@ -3,7 +3,6 @@ package br.com.residencia.poo.contas;
 import br.com.residencia.poo.exceptions.ContaException;
 import br.com.residencia.poo.interfaces.Taxas;
 
-
 public class ContaCorrente extends Conta implements Taxas {
 
 	private Integer totalSaques = 0, totalDepositos = 0, totalTransferencias = 0;
@@ -32,10 +31,10 @@ public class ContaCorrente extends Conta implements Taxas {
 	public Double getTotalTributado() {
 		return this.totalTaxado;
 	}
-	
+
 	@Override
 	public void saca(double valor) throws ContaException {
-		
+
 		if (valor < 0) {
 			throw new ContaException("O valor digitado para saque é inválido!");
 		} else {
@@ -43,7 +42,7 @@ public class ContaCorrente extends Conta implements Taxas {
 			if (this.saldo - valorTaxado >= 0) {
 				this.saldo -= valorTaxado;
 				this.totalTaxado += Taxas.SAQUE;
-				
+
 				// Usamos printf para limitar as casas decimais
 				System.out.println("\nOperação realizada com sucesso!\n");
 				System.out.printf("Valor sacado: R$%.2f%n", valor, "\n");
@@ -60,7 +59,7 @@ public class ContaCorrente extends Conta implements Taxas {
 	public double taxarSaque(double valor) {
 		return valor + Taxas.SAQUE;
 	}
-	
+
 	@Override
 	public void deposita(double valor) throws ContaException {
 		if (valor < 0) {
@@ -85,7 +84,7 @@ public class ContaCorrente extends Conta implements Taxas {
 	public double taxarDeposito(double valor) {
 		return valor - Taxas.DEPOSITO;
 	}
-	
+
 	@Override
 	public void transfere(Conta destino, double valor) throws ContaException {
 		if (valor <= 0) {
@@ -110,7 +109,7 @@ public class ContaCorrente extends Conta implements Taxas {
 				System.out.printf("Valor transferido: R$%.2f%n", valor, "\n");
 				System.out.printf("Taxa para transferência: R$%.2f%n", Taxas.TRANSFERENCIA, "\n");
 				System.out.printf("Saldo atual: R$%.2f%n", this.saldo, "\n");
-				
+
 				++totalTransferencias;
 			} else {
 				System.out.println("Valor digitado excede o saldo disponível!");
@@ -119,17 +118,16 @@ public class ContaCorrente extends Conta implements Taxas {
 		}
 
 	}
-	
+
 	@Override
 	public double taxarTransferencia(double valor) {
 		return valor + Taxas.TRANSFERENCIA;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "Conta Corrente\tNúmero da Agência = " + this.numeroAgencia + "\tNúmero da Conta = "
-				+ this.numeroConta + "\tSaldo = " + this.saldo + "\tCPF = " + this.cpf + "\n";
+		return "Conta Corrente\tNúmero da Agência = " + this.numeroAgencia + "\tNúmero da Conta = " + this.numeroConta
+				+ "\tSaldo = " + this.saldo + "\tCPF = " + this.cpf + "\n";
 	}
 
 }
-

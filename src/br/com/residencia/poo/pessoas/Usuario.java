@@ -1,56 +1,101 @@
 package br.com.residencia.poo.pessoas;
 
-public class Usuario {
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
 
-	/* ESSA CLASSE É IDENTICA A DE FUNCIONARIO, 
-	 * NAO VEJO SENTIDO ESTA CLASSE USUARIO EXISTIR. */
+public abstract class Usuario implements Comparable<Usuario> {
 
-	/* ATRIBUTOS */
-	protected Integer idUsuario;
-	protected String login;
+	protected String tipoUsuario;
+	protected String nome;
+	protected String cpf;
 	protected String senha;
-	protected Double salario;
+	protected Integer agencia;
+	protected Integer numeroDaConta;
 
-	/* CONSTRUTOR PARA INSTANCIAR NOVOS USUARIOS */
-	public Usuario(Integer idUsuario, String login, String senha, Double salario) {
-		super();
-		this.idUsuario = idUsuario;
-		this.login = login;
+	public static Map<String, Usuario> mapaUsuarios = new HashMap<>();
+	public static TreeMap<String, Usuario> OrdenaUsuarios = new TreeMap<>();
+
+	public Usuario() {
+
+	}
+
+	public Usuario(String tipoUsuario, String nome, String cpf, String senha, Integer agencia, Integer numeroDaConta) {
+		this.nome = nome;
+		this.tipoUsuario = tipoUsuario;
+		this.cpf = cpf;
 		this.senha = senha;
-		this.salario = salario;
+		this.agencia = agencia;
+		this.numeroDaConta = numeroDaConta;
 	}
 
-	/* GETTERS E SETTERS */
-	public Integer getIdUsuario() {
-		return idUsuario;
+	public String getTipoUsuario() {
+		return this.tipoUsuario;
 	}
 
-	public void setIdUsuario(Integer idUsuario) {
-		this.idUsuario = idUsuario;
+	public void setTipoUsuario(String tipoUsuario) {
+		this.tipoUsuario = tipoUsuario;
 	}
 
-	public String getLogin() {
-		return login;
+	public String getNome() {
+		return this.nome;
 	}
 
-	public void setLogin(String login) {
-		this.login = login;
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getCpf() {
+		return this.cpf;
+	}
+
+	public void setCpf(String cpf) {
+		// só vai registrar o cpf no campo se o campo estiver vazio, sem nada
+		if (this.cpf == null) {
+			this.cpf = cpf;
+		}
 	}
 
 	public String getSenha() {
-		return senha;
+		return this.senha;
 	}
 
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
 
-	public Double getSalario() {
-		return salario;
+	public Integer getAgencia() {
+		return this.agencia;
 	}
 
-	public void setSalario(Double salario) {
-		this.salario = salario;
+	public void setAgencia(Integer agencia) {
+		this.agencia = agencia;
+	}
+
+	public Integer getNumeroConta() {
+		return this.numeroDaConta;
+	}
+
+	public void setNumeroConta(Integer numeroDaConta) {
+		this.numeroDaConta = numeroDaConta;
+	}
+
+	@Override
+	public int compareTo(Usuario outroUsuario) {
+
+		return this.nome.compareTo(outroUsuario.getNome());
+	}
+
+	public String relatorioInformacoes() {
+
+		return "Nome: " + this.nome + "\t CPF: " + this.cpf + "\tAgencia: " + this.agencia;
+
+	}
+
+	@Override
+	public String toString() {
+		return "Usuario [nome=" + this.nome + ", tipoUsuario=" + this.tipoUsuario + ", cpf=" + this.cpf + ", senha="
+				+ this.senha + ", agencia=" + this.agencia + ", numeroConta=" + this.numeroDaConta + "]";
 	}
 
 }

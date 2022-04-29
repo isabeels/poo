@@ -2,34 +2,22 @@ package br.com.residencia.poo.pessoas;
 
 import java.util.Date;
 
-public class Cliente extends Pessoa {
+public class Cliente extends Usuario {
 
-	/* ATRIBUTOS */
-	protected String idCliente;
-	protected String idGerente;
-
-	/* CONSTRUTOR PARA INSTANCIAR NOVOS CLIENTES INVOCANDO A SUPERCLASSE PESSOA */
-	public Cliente(String nome, String cpf, String tipoPessoa,String idCliente,String idGerente) {
-		super(nome,cpf, tipoPessoa);
-		this.idCliente = idCliente;
-		this.idGerente = idGerente;
+	public Cliente() {
+		super();
 	}
 
-	/* GETTERS E SETTERS */
-	public String getIdCliente() {
-		return idCliente;
+	public Cliente(String tipoUsuario, String nome, String cpf, String senha, Integer agencia, Integer numeroDaConta) {
+		super(tipoUsuario, nome, cpf, senha, agencia, numeroDaConta);
+
 	}
 
-	public void setIdCliente(String idCliente) {
-		this.idCliente = idCliente;
-	}
-
-	public String getIdGerente() {
-		return idGerente;
-	}
-
-	public void setIdGerente(String idGerente) {
-		this.idGerente = idGerente;
+	@Override
+	public String toString() {
+		return "Cliente [Nome: " + this.nome + ", tipoUsuario=" + this.tipoUsuario
+				+ ", cpf=" + this.cpf + ", senha=" + this.senha + ", agencia=" + this.agencia + ", numeroDaConta="
+				+ this.numeroDaConta + "]\n";
 	}
 
 }

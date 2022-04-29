@@ -1,73 +1,33 @@
 package br.com.residencia.poo.pessoas;
 
-import java.util.Date;
-import java.util.List;
-
-import br.com.residencia.poo.contas.Conta;
-
-import java.util.ArrayList;
-
 public class Gerente extends Funcionario {
 
-	/* ATRIBUTOS */
-	protected Integer idGerente;
-	protected Integer numeroAgencia;
-	protected List<Conta> contas = new ArrayList<>();
+	private Integer numeroAgencia;
 
-	/*CONSTRUTOR PARA INSTANCIAR NOVOS GERENTES INVOCANDO SUPERCLASSE FUNCIONARIO*/
-	public Gerente(String nome, String genero, String estadoCivil, String cpf, String telefone, String endereco,
-			String email, Date dataNascimento, String tipoPessoa, Integer idFuncionario, String login, String senha,
-			Double salario, String cargo, Integer idGerente, Integer numeroAgencia) {
+	public Gerente() {
+		super();
+	}
 
-		super(nome, genero, estadoCivil, cpf, telefone, endereco, email, dataNascimento, tipoPessoa, idFuncionario,
-				login, senha, salario, cargo);
+	public Gerente(String tipoUsuario, String nome, String cpf, String senha, Integer agencia, Integer numeroDaConta,
+			Double salario, Integer numeroAgencia) {
+		super(tipoUsuario, nome, cpf, senha, agencia, numeroDaConta, salario);
 
-		this.idGerente = idGerente;
 		this.numeroAgencia = numeroAgencia;
-		
-	}
-	public Gerente(String nome, String genero, String estadoCivil, String cpf, String telefone, String endereco,
-			String email, Date dataNascimento, String tipoPessoa, Integer idFuncionario, String login, String senha,
-			Double salario, String cargo, Integer idGerente, Integer numeroAgencia, List<Conta> contas) {
-
-		super(nome, genero, estadoCivil, cpf, telefone, endereco, email, dataNascimento, tipoPessoa, idFuncionario,
-				login, senha, salario, cargo);
-
-		this.idGerente = idGerente;
-		this.numeroAgencia = numeroAgencia;
-		this.contas = contas;
-		
-	}
-	/* GETTERS E SETTERS */
-	public Integer getIdGerente() {
-		return idGerente;
-	}
-
-	public void setIdGerente(Integer idGerente) {
-		this.idGerente = idGerente;
 	}
 
 	public Integer getNumeroAgencia() {
-		return numeroAgencia;
+		return this.numeroAgencia;
 	}
 
 	public void setNumeroAgencia(Integer numeroAgencia) {
 		this.numeroAgencia = numeroAgencia;
 	}
 
-	/* MÉTODOS DA CLASSE GERENTE */
-	
-	public void emitirRelatorioGerente() {
-		
+	@Override
+	public String toString() {
+		return "Gerente [numeroAgencia=" + this.numeroAgencia + ", salario=" + this.salario + ", nome=" + this.nome
+				+ ", tipoUsuario=" + this.tipoUsuario + ", cpf=" + this.cpf + ", senha=" + this.senha + ", agencia="
+				+ this.agencia + ", numeroDaConta=" + this.numeroDaConta + "]\n";
 	}
-	
-	public void emitirRelatorioContas() {
-		for(int i=0;i<contas.size();i++) {
-			System.out.println("Conta "+(i+1)+": "+contas.get(i).getNumeroConta());
-			System.out.println(contas.get(i).getNumeroAgencia());
-			System.out.println(contas.get(i).getTipoConta());
-			System.out.println(contas.get(i).getIdConta());
-			
-		}
-	}
+
 }
