@@ -1,97 +1,95 @@
 package br.com.residencia.poo.contas;
 
-import java.io.IOException;
-import java.time.LocalDate;
-import br.com.residencia.poo.enums.TipoConta;
-import br.com.residencia.poo.exceptions.CpfInvalidoException;
-import br.com.residencia.poo.exceptions.OperacaoNaoAutorizadaException;
-import br.com.residencia.poo.exceptions.SaldoInsuficienteException;
-import br.com.residencia.poo.exceptions.ValorInvalidoException;
-import br.com.residencia.poo.pessoas.Pessoa;
+import br.com.residencia.poo.exceptions.ContaException;
 
 public class ContaPoupanca extends Conta {
 
-	/* ATRIBUTOS */
-	protected static Integer idContaPoupanca = 0;
-	protected LocalDate dataAbertura;
-	protected Double rendimento;
-	protected Integer dias;
-	private static final TipoConta tipoCP = TipoConta.POUPANCA;
-	private static final double JUROS = 0.001;
-
-	/* CONSTRUTOR PARA INSTANCIAR NOVAS CONTAS POUPANCAS */
-	
-	public ContaPoupanca(Pessoa cpfTitular, String numeroAgencia, String numeroConta) {
-		super(cpfTitular, numeroAgencia, numeroConta);
-		incrementarID();
-		getTipocp();
-		dataAbertura = LocalDate.now();
+	public ContaPoupanca() {
+		super();
 	}
 
-
-	/* GETTERS E SETTERS */
-	public Integer getIdContaPoupanca() {
-		return idContaPoupanca;
-	}
-
-	public void setIdContaPoupanca(Integer idContaPoupanca) {
-		this.idContaPoupanca = idContaPoupanca;
-	}
-
-	public Double getRendimento() {
-		return rendimento;
-	}
-
-	public void setRendimento(Double rendimento) {
-		this.rendimento = rendimento;
-	}
-	
-	public static TipoConta getTipocp() {
-		return tipoCP;
-	}
-
-
-	/* MÉTODO PARA A CONTA POUPANCA */
-
-	public Double calcularRendimentos(Double dinheiro, Integer dias) throws ValorInvalidoException {
-		if (dinheiro <= 0) {
-            throw new ValorInvalidoException("Não é possível simular com valores negativos.");
-        } else if (dias <= 0) {
-        	 throw new ValorInvalidoException("Não é possível simular com dias iguais ou menores que 0.");
-        }
-		rendimento = dinheiro * (JUROS * dias);
-		this.dias = dias;
-		return rendimento;
-	}
-	void imprimir() {
-		System.out.printf("Rendeu %.02f R$ em %d dia(s)",rendimento, dias);
-}	
-
-	public Integer incrementarID() {
-		return idContaPoupanca++;
-	}
-	
-	@Override
-	public void sacar(Pessoa cpfTitular, double valor)
-			throws ValorInvalidoException, SaldoInsuficienteException, OperacaoNaoAutorizadaException, IOException {
-		super.sacar(cpfTitular, valor);
+	public ContaPoupanca(String tipoConta, Integer numeroAgencia, Integer numeroConta, Double saldo, String cpf) {
+		super(tipoConta, numeroAgencia, numeroConta, saldo, cpf);
 	}
 
 	@Override
-	public void depositar(double valor) throws ValorInvalidoException {
-		super.depositar(valor);
+	public void saca(double valor) throws ContaException {
+		if (valor <= 0) {
+
+			throw new ContaException("O valor digitado para saque é inválido!");
+
+		} else {
+
+			if (this.saldo > 0 && this.saldo >= valor) {
+
+				this.saldo -= valor;
+
+				// Usamos printf para limitar as casas decimais
+				System.out.println("\nOperação realizada com sucesso!\n");
+				System.out.printf("Valor sacado: R$%.2f%n", valor, "\n");
+				System.out.printf("Saldo atual: R$%.2f%n", this.saldo, "\n");
+
+				// LeituraEscrita.comprovanteSaque(usuario, valor);
+			} else {
+				System.out.println("Valor digitado excede o saldo disponível!");
+			}
+
+		}
+
 	}
 
 	@Override
-	public void transferir(double valor, Conta destino) throws ValorInvalidoException, SaldoInsuficienteException,
-			CpfInvalidoException, OperacaoNaoAutorizadaException, IOException {
-		super.transferir(valor, destino);
+	public void deposita(double valor) throws ContaException {
+		if (valor < 0) {
+
+			throw new ContaException("O valor digitado para depósito é inválido!");
+
+		} else {
+
+			this.saldo += valor;
+
+			// Usamos printf para limitar as casas decimais
+			System.out.println("\nOperação realizada com sucesso!\n");
+			System.out.printf("Valor depositado: R$%.2f%n", valor, "\n");
+			System.out.printf("Saldo atual: R$%.2f%n", this.saldo, "\n");
+		}
+
+	}
+
+	@Override
+	public void transfere(Conta destino, double valor) throws ContaException {
+
+		if (valor < 0) {
+
+			throw new ContaException("O valor digitado para transferência é inválido!");
+
+		} else {
+
+			if (this.saldo >= 0 && this.saldo >= valor) {
+
+				this.saldo -= valor;
+				destino.saldo += valor;
+
+				// Usamos printf para limitar as casas decimais
+				System.out.println("\nOperação realizada com sucesso!\n");
+				System.out.println("--------------------------");
+				System.out.println("Conta destinatária: ");
+				System.out.printf("Agência: " + destino.getNumeroAgencia() + "\n");
+				System.out.printf("Número: " + destino.getNumeroConta() + "\n");
+				System.out.println("--------------------------");
+				System.out.printf("Valor transferido: R$%.2f%n", valor, "\n");
+				System.out.printf("Saldo atual: R$%.2f%n", this.saldo, "\n");
+			} else {
+				System.out.println("Valor digitado excede o saldo disponível!");
+			}
+
+		}
+
 	}
 
 	@Override
 	public String toString() {
-		return "[ Conta Poupanca ID: " + idContaPoupanca + " | CPF do titular: " + this.cpfTitular.getCpf() + " | Número da agência: "
-				+ numeroAgencia + " | Tipo de conta: " + getTipocp() + " | Número da Conta: " + numeroConta + " | Data de abertura: "
-				+ dataAbertura + " | Saldo atual: " + saldo + " R$ ]";
+		return "Conta Poupança\tNúmero da Agência = " + this.numeroAgencia + "\tNúmero da Conta = "
+				+ this.numeroConta + "\tSaldo = " + this.saldo + "\tCPF = " + this.cpf + "\n";
 	}
 }
