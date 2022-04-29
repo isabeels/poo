@@ -56,7 +56,7 @@ public class MenuPrincipal {
 
 				conta.deposita(inputValor);
 
-				LeituraEscrita.comprovanteDeposito(conta, inputValor);
+//				LeituraEscrita.comprovanteDeposito(conta, inputValor);
 
 				principal.pulaLinha();
 
