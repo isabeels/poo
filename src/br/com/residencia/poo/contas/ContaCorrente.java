@@ -2,6 +2,12 @@ package br.com.residencia.poo.contas;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.DefaultListModel;
+import javax.swing.JFrame;
+import javax.swing.JList;
 
 import br.com.residencia.poo.enums.TipoConta;
 import br.com.residencia.poo.exceptions.CpfInvalidoException;
@@ -14,8 +20,10 @@ public class ContaCorrente extends Conta {
 
 	/* ATRIBUTOS */
 	protected static Integer idContaCorrente= 0;
+	protected  Integer SingleidContaCorrente= 0;
 	protected LocalDate dataAbertura;
 	private static final TipoConta tipoCC = TipoConta.CORRENTE;
+	static List<ContaCorrente> cCC = new ArrayList<ContaCorrente>();
 
 	/* CONSTRUTOR PARA INSTANCIAR NOVAS CONTAS CORRENTES */
 	
@@ -26,9 +34,16 @@ public class ContaCorrente extends Conta {
 		dataAbertura = LocalDate.now();
 	}
 	
+	public void setList(List<ContaCorrente> Contas) {
+		ContaCorrente.cCC = Contas;
+	}
+	public void addList(ContaCorrente conta) {
+		ContaCorrente.cCC.add(conta);
+	}
+	
 	/* GETTERS E SETTERS */
 	public Integer getIdContaCorrente() {
-		return idContaCorrente;
+		return SingleidContaCorrente;
 	}
 	
 	public static TipoConta getTipocc() {
@@ -52,6 +67,7 @@ public class ContaCorrente extends Conta {
 	/* METODOS */
 	
 	public Integer incrementarID() {
+		this.SingleidContaCorrente++;
 		return idContaCorrente++;
 	}
 	
@@ -83,4 +99,6 @@ public class ContaCorrente extends Conta {
 				+ numeroAgencia + " | Tipo de conta: " + getTipocc() + " | Número da Conta: " + numeroConta + " | Data de abertura: "
 				+ dataAbertura + " | Saldo atual: " + saldo + " R$ ]";
 	}
+	
+	
 }

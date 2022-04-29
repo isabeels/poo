@@ -65,8 +65,8 @@ public class Gerente extends Funcionario {
 		for(int i=0;i<contas.size();i++) {
 			System.out.println("Conta "+(i+1)+": "+contas.get(i).getNumeroConta());
 			System.out.println(contas.get(i).getNumeroAgencia());
-			System.out.println(contas.get(i).getTipoConta());
-			System.out.println(contas.get(i).getIdConta());
+			System.out.println(contas.get(i).getNumeroConta());
+			System.out.println(contas.get(i).getSaldo());
 			
 		}
 	}

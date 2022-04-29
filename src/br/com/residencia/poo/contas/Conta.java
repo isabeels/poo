@@ -5,6 +5,10 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import javax.swing.DefaultListModel;
+import javax.swing.JFrame;
+import javax.swing.JList;
+
 import br.com.residencia.poo.exceptions.CpfInvalidoException;
 import br.com.residencia.poo.exceptions.OperacaoNaoAutorizadaException;
 import br.com.residencia.poo.exceptions.SaldoInsuficienteException;
@@ -122,6 +126,8 @@ public abstract class Conta {
 	public void exibirSaldo() {
 		System.out.printf("Saldo atual e disponível: R$ %.2f", this.saldo);
 	}
+	
+	
 	
 	public void comprovanteSaque(Pessoa pessoa, double valor) throws IOException {
         

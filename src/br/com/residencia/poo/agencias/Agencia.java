@@ -3,6 +3,10 @@ package br.com.residencia.poo.agencias;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.DefaultListModel;
+import javax.swing.JFrame;
+import javax.swing.JList;
+
 import br.com.residencia.poo.contas.Conta;
 
 public class Agencia {
@@ -66,6 +70,7 @@ public class Agencia {
 		System.out.println("__________________________________________");
 	
 	}
+	
 	public double faturamentoTotal() {
 		double total=0.0;
 		for(int i=0;i<contas.size();i++) {
