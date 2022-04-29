@@ -64,8 +64,14 @@ public class MenuPrincipal {
 				
 			case 3:
 				principal.imprimeLinhaHorizontal();
-				System.out.println("O valor do seu Saldo é  " + conta.getSaldo());
+				System.out.print("Digite o valor que deseja transferir: ");
+				inputValor = Double.parseDouble(Principal.sc.next());
+				int contaDestino = Principal.sc.nextInt();
+				
+				
 			case 4:
+				principal.imprimeLinhaHorizontal();
+				System.out.println("O valor do seu Saldo é  " + conta.getSaldo());
 			
 			case 5:
 				
