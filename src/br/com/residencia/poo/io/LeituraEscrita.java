@@ -17,7 +17,9 @@ import br.com.residencia.poo.enums.TipoPessoa;
 import br.com.residencia.poo.exceptions.ContaException;
 import br.com.residencia.poo.interfaces.Taxas;
 import br.com.residencia.poo.pessoas.Cliente;
+import br.com.residencia.poo.pessoas.Diretor;
 import br.com.residencia.poo.pessoas.Gerente;
+import br.com.residencia.poo.pessoas.Presidente;
 import br.com.residencia.poo.pessoas.Usuario;
 
 public class LeituraEscrita {
@@ -42,8 +44,15 @@ public class LeituraEscrita {
 							Integer.parseInt(dados[2]), Double.parseDouble(dados[3]), dados[4]);
 
 					Conta.mapaContas.put(dados[4], cc);
+					
+				} else if (dados[0].equalsIgnoreCase(TipoConta.POUPANCA.getTipoConta())) {
 
-				} else if (dados[0].equalsIgnoreCase(TipoPessoa.CLIENTE.getTipoUsuario())) {
+						ContaPoupanca cp = new ContaPoupanca(dados[0], Integer.parseInt(dados[1]),
+								Integer.parseInt(dados[2]), Double.parseDouble(dados[3]), dados[4]);
+
+						Conta.mapaContas.put(dados[4], cp);
+
+					} else if (dados[0].equalsIgnoreCase(TipoPessoa.CLIENTE.getTipoUsuario())) {
 
 					Cliente cli = new Cliente(dados[0], dados[1], dados[2], dados[3], Integer.parseInt(dados[4]),
 							Integer.parseInt(dados[5]));
@@ -60,9 +69,25 @@ public class LeituraEscrita {
 					Usuario.OrdenaUsuarios.put(dados[1], gerente);
 
 				}
-			} else {
+			 else if (dados[0].equalsIgnoreCase(TipoPessoa.DIRETOR.getTipoUsuario())) {
+
+				Diretor diretor = new Diretor(dados[0], dados[1], dados[2], dados[3], Integer.parseInt(dados[4]),
+						Integer.parseInt(dados[5]), Double.parseDouble(dados[6]));
+
+				Usuario.mapaUsuarios.put(dados[2], diretor);
+				Usuario.OrdenaUsuarios.put(dados[1], diretor);
 				break;
 			}
+			 else if (dados[0].equalsIgnoreCase(TipoPessoa.PRESIDENTE.getTipoUsuario())) {
+
+					Presidente presidente = new Presidente(dados[0], dados[1], dados[2], dados[3], Integer.parseInt(dados[4]),
+							Integer.parseInt(dados[5]), Double.parseDouble(dados[6]));
+
+					Usuario.mapaUsuarios.put(dados[2], presidente);
+					Usuario.OrdenaUsuarios.put(dados[1], presidente);
+					break;
+				}
+		}
 		}
 		buffRead.close();
 	}
@@ -370,7 +395,7 @@ public class LeituraEscrita {
 		buffWrite.close();
 	}
 
-	public static void relatorioRendimentoPoupanca(Conta conta, Double inputValor, Integer inputDias) throws ContaException, IOException {
+	public static void relatorioRendimentoPoupanca(Conta conta, Double inputValor, int inputDias) throws ContaException, IOException {
 		String nomeArquivo = conta.getCpf() + "_" + conta.getNumeroAgencia() + "_" + conta.getNumeroConta()
 				+ "_transacoes";
 
@@ -401,6 +426,6 @@ public class LeituraEscrita {
 		buffWrite.append(linha + "\n\n");
 
 		buffWrite.close();
-	};
+	}
 
 }

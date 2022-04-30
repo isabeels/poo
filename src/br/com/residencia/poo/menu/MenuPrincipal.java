@@ -2,12 +2,9 @@ package br.com.residencia.poo.menu;
 
 import java.io.IOException;
 import java.util.InputMismatchException;
-import java.util.Map;
 
 import br.com.residencia.poo.io.LeituraEscrita;
 import br.com.residencia.poo.contas.Conta;
-import br.com.residencia.poo.enums.TipoConta;
-import br.com.residencia.poo.enums.TipoPessoa;
 import br.com.residencia.poo.exceptions.ContaException;
 import br.com.residencia.poo.pessoas.Usuario;
 import br.com.residencia.poo.principal.Principal;
@@ -21,8 +18,7 @@ public class MenuPrincipal {
 	public static void menuPrincipal(Usuario usuario, Conta conta)
 			throws InputMismatchException, NullPointerException, ContaException, IOException {
 		Principal principal = new Principal();
-		LeituraEscrita l = new LeituraEscrita();
-
+		
 		try {
 
 			principal.pulaLinha();
@@ -31,13 +27,15 @@ public class MenuPrincipal {
 			System.out.println("[3]\tTRANSFERÊNCIA");
 			System.out.println("[4]\tSALDO");
 			System.out.println("[5]\tRELATÓRIO");
-			System.out.println("[6]\tSAIR");
+			System.out.println("[6]\tSIMULAÇÃO DE RENDIMENTO DA POUPANÇA");
+			System.out.println("[7]\tSAIR");
 			principal.imprimeLinhaHorizontal();
 
 			System.out.print("Digite a opção desejada: ");
 			int opcaoOperacao = Principal.sc.nextInt();
 			Double inputValor;
 
+			
 			switch (opcaoOperacao) {
 			case 1:
 				principal.imprimeLinhaHorizontal();
@@ -79,21 +77,11 @@ public class MenuPrincipal {
 					System.out.println("Conta não encontrada");
 				}
 
-//				for (int i=0;i<Conta.mapaContas.keySet().size();i++) {
-//					if (Conta.mapaContas.get(Conta.mapaContas.get(i).getCpf()).equals(contaDestino)){
-//						LeituraEscrita.comprovanteDeposito(conta,Conta.mapaContas.get(i), inputValor);
-//						System.out.println("Comprovante do depósito enviado. Transferência enviada para conta : "+Conta.mapaContas.get(i).getCpf());
-//						break;
-//					}else {
-//						System.out.println("Conta inexistente no sistema.");
-//						break;
-//					}
-//				}
 				break;
 
 			case 4:
 				principal.imprimeLinhaHorizontal();
-				System.out.println("O valor do seu Saldo é  " + conta.getSaldo());
+				System.out.printf("O valor do seu saldo é R$ %.2f\n", conta.getSaldo());
 
 			case 5:
 				switch (usuario.getTipoUsuario()) {
@@ -108,12 +96,24 @@ public class MenuPrincipal {
 					break;
 				case "GERENTE":
 					LeituraEscrita.relatorioContasPorAgencia(conta);
-					System.out
-							.println("Seu arquivo de relatório foi gerado com as informações das Contas das Agências");
+					System.out.println("Seu arquivo de relatório foi gerado com as informações das Contas das Agências");
 					break;
 				}
-
+				
 			case 6:
+				principal.imprimeLinhaHorizontal();
+				System.out.print("Digite o valor que deseja simular: ");
+				inputValor = Double.parseDouble(Principal.sc.next());
+				
+				System.out.print("Digite a quantidade de dias que deseja simular: ");
+				Integer inputDias = Integer.parseInt(Principal.sc.next());
+
+				LeituraEscrita.relatorioRendimentoPoupanca(conta, inputValor, inputDias);
+				System.out.println("Seu arquivo de simulação de rendimentos da poupança foi gerado com sucesso!");
+				
+				break;
+
+			case 7:
 				principal.limpaTela();
 				principal.menuInterativo();
 				break;
