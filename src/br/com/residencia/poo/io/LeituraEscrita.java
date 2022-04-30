@@ -44,15 +44,15 @@ public class LeituraEscrita {
 							Integer.parseInt(dados[2]), Double.parseDouble(dados[3]), dados[4]);
 
 					Conta.mapaContas.put(dados[4], cc);
-					
+
 				} else if (dados[0].equalsIgnoreCase(TipoConta.POUPANCA.getTipoConta())) {
 
-						ContaPoupanca cp = new ContaPoupanca(dados[0], Integer.parseInt(dados[1]),
-								Integer.parseInt(dados[2]), Double.parseDouble(dados[3]), dados[4]);
+					ContaPoupanca cp = new ContaPoupanca(dados[0], Integer.parseInt(dados[1]),
+							Integer.parseInt(dados[2]), Double.parseDouble(dados[3]), dados[4]);
 
-						Conta.mapaContas.put(dados[4], cp);
+					Conta.mapaContas.put(dados[4], cp);
 
-					} else if (dados[0].equalsIgnoreCase(TipoPessoa.CLIENTE.getTipoUsuario())) {
+				} else if (dados[0].equalsIgnoreCase(TipoPessoa.CLIENTE.getTipoUsuario())) {
 
 					Cliente cli = new Cliente(dados[0], dados[1], dados[2], dados[3], Integer.parseInt(dados[4]),
 							Integer.parseInt(dados[5]));
@@ -68,26 +68,25 @@ public class LeituraEscrita {
 					Usuario.mapaUsuarios.put(dados[2], gerente);
 					Usuario.OrdenaUsuarios.put(dados[1], gerente);
 
-				}
-			 else if (dados[0].equalsIgnoreCase(TipoPessoa.DIRETOR.getTipoUsuario())) {
+				} else if (dados[0].equalsIgnoreCase(TipoPessoa.DIRETOR.getTipoUsuario())) {
 
-				Diretor diretor = new Diretor(dados[0], dados[1], dados[2], dados[3], Integer.parseInt(dados[4]),
-						Integer.parseInt(dados[5]), Double.parseDouble(dados[6]));
-
-				Usuario.mapaUsuarios.put(dados[2], diretor);
-				Usuario.OrdenaUsuarios.put(dados[1], diretor);
-				break;
-			}
-			 else if (dados[0].equalsIgnoreCase(TipoPessoa.PRESIDENTE.getTipoUsuario())) {
-
-					Presidente presidente = new Presidente(dados[0], dados[1], dados[2], dados[3], Integer.parseInt(dados[4]),
+					Diretor diretor = new Diretor(dados[0], dados[1], dados[2], dados[3], Integer.parseInt(dados[4]),
 							Integer.parseInt(dados[5]), Double.parseDouble(dados[6]));
+
+					Usuario.mapaUsuarios.put(dados[2], diretor);
+					Usuario.OrdenaUsuarios.put(dados[1], diretor);
+
+				} else if (dados[0].equalsIgnoreCase(TipoPessoa.PRESIDENTE.getTipoUsuario())) {
+
+					Presidente presidente = new Presidente(dados[0], dados[1], dados[2], dados[3],
+							Integer.parseInt(dados[4]), Integer.parseInt(dados[5]), Double.parseDouble(dados[6]));
 
 					Usuario.mapaUsuarios.put(dados[2], presidente);
 					Usuario.OrdenaUsuarios.put(dados[1], presidente);
 					break;
 				}
-		}
+			}
+
 		}
 		buffRead.close();
 	}
@@ -395,7 +394,8 @@ public class LeituraEscrita {
 		buffWrite.close();
 	}
 
-	public static void relatorioRendimentoPoupanca(Conta conta, Double inputValor, int inputDias) throws ContaException, IOException {
+	public static void relatorioRendimentoPoupanca(Conta conta, Double inputValor, int inputDias)
+			throws ContaException, IOException {
 		String nomeArquivo = conta.getCpf() + "_" + conta.getNumeroAgencia() + "_" + conta.getNumeroConta()
 				+ "_transacoes";
 
@@ -413,9 +413,9 @@ public class LeituraEscrita {
 		linha = "Conta: " + conta.getNumeroConta();
 		buffWrite.append(linha + "\n");
 
-		linha = "A previsão de rendimento da sua conta: R$ " + ((ContaPoupanca) conta).previsaoDeRendimento(inputValor, inputDias);
+		linha = "A previsão de rendimento da sua conta: R$ "
+				+ ((ContaPoupanca) conta).previsaoDeRendimento(inputValor, inputDias);
 		buffWrite.append(linha + "\n");
-		
 
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 		Date date = new Date();
