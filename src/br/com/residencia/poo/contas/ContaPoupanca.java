@@ -96,7 +96,7 @@ public class ContaPoupanca extends Conta {
 			throw new ContaException("Não é possível simular com valores negativos.");
 		}
 		double rendimento = valor * (juros * dia);
-		System.out.printf("A previsão resulta em: %.02 R$ em %d dias \n",rendimento, dia);
+		System.out.printf("A previsão resulta em: %.2f R$ em %d dias \n",rendimento, dia);
 		return rendimento;
 	}
 
