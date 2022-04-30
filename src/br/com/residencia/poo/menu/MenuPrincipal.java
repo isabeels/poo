@@ -1,7 +1,9 @@
 package br.com.residencia.poo.menu;
 
+
 import java.io.IOException;
 import java.util.InputMismatchException;
+import java.util.Map;
 
 import br.com.residencia.poo.io.LeituraEscrita;
 import br.com.residencia.poo.contas.Conta;
@@ -20,6 +22,7 @@ public class MenuPrincipal {
 	public static void menuPrincipal(Usuario usuario, Conta conta)
 			throws InputMismatchException, NullPointerException, ContaException, IOException {
 		Principal principal = new Principal();
+		LeituraEscrita l = new LeituraEscrita();
 
 		try {
 
@@ -56,24 +59,66 @@ public class MenuPrincipal {
 
 				conta.deposita(inputValor);
 
-//				LeituraEscrita.comprovanteDeposito(conta, inputValor);
+				LeituraEscrita.comprovanteDeposito(conta, inputValor);
 
 				principal.pulaLinha();
 
 				break;
 				
 			case 3:
+				
+				
 				principal.imprimeLinhaHorizontal();
 				System.out.print("Digite o valor que deseja transferir: ");
 				inputValor = Double.parseDouble(Principal.sc.next());
-				int contaDestino = Principal.sc.nextInt();
+				System.out.print("Digite o cpf da conta que deseja transferir: ");
+				String contaDestino = Principal.sc.next();
+				if(!Conta.mapaContas.get(contaDestino).equals(null)) {
+					Conta cD = Conta.mapaContas.get(contaDestino);
+					conta.transfere(cD, inputValor);
+					LeituraEscrita.comprovanteTransferencia(conta,cD, inputValor);
+				}else {
+					System.out.println("Conta não encontrada");
+				}
 				
+				
+				
+//				for (int i=0;i<Conta.mapaContas.keySet().size();i++) {
+//					if (Conta.mapaContas.get(Conta.mapaContas.get(i).getCpf()).equals(contaDestino)){
+//						LeituraEscrita.comprovanteDeposito(conta,Conta.mapaContas.get(i), inputValor);
+//						System.out.println("Comprovante do depósito enviado. Transferência enviada para conta : "+Conta.mapaContas.get(i).getCpf());
+//						break;
+//					}else {
+//						System.out.println("Conta inexistente no sistema.");
+//						break;
+//					}
+//				}
+				break;
 				
 			case 4:
 				principal.imprimeLinhaHorizontal();
 				System.out.println("O valor do seu Saldo é  " + conta.getSaldo());
+				
 			
 			case 5:
+				switch(usuario.getTipoUsuario()) {
+				case "PRESIDENTE":
+					LeituraEscrita.relatorioTotalCapital(conta,  Conta.mapaContas);
+					System.out.println("Seu arquivo de relatório foi gerado com as informações do capital do Banco");
+					break;
+				case "DIRETOR":
+					LeituraEscrita.relatorioContasPorAgencia(conta);
+					System.out.println("Seu arquivo de relatório foi gerado com as informações das Contas das Agências");
+					break;
+				case "GERENTE":
+					
+					break;
+				case "FUNCIONARIO":
+					break;
+				case "CLIENTE":
+					break;
+				}
+					
 				
 			case 6:
 				principal.limpaTela();

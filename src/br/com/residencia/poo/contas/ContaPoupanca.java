@@ -29,7 +29,7 @@ public class ContaPoupanca extends Conta {
 				System.out.printf("Valor sacado: R$%.2f%n", valor, "\n");
 				System.out.printf("Saldo atual: R$%.2f%n", this.saldo, "\n");
 
-				// LeituraEscrita.comprovanteSaque(usuario, valor);
+				
 			} else {
 				System.out.println("Valor digitado excede o saldo disponível!");
 			}

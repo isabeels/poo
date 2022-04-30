@@ -65,10 +65,10 @@ public class LeituraEscrita {
 	}
 
 	public static void comprovanteSaque(Conta conta, double valorSaque) throws IOException {
-		
+
 		String nomeArquivo = conta.getCpf() + "_" + conta.getNumeroAgencia() + "_" + conta.getNumeroConta()
 				+ "_transacoes";
-		
+
 		BufferedWriter buffWrite = new BufferedWriter(new FileWriter(PATH_BASICO + nomeArquivo + EXTENSAO));
 
 		String linha = "*************** SAQUE ***************";
@@ -98,10 +98,137 @@ public class LeituraEscrita {
 
 	}
 
+	public static void comprovanteDeposito(Conta conta, double valorDeposito) throws IOException {
+
+		String nomeArquivo = conta.getCpf() + "_" + conta.getNumeroAgencia() + "_" + conta.getNumeroConta()
+				+ "_transacoes";
+
+		BufferedWriter buffWrite = new BufferedWriter(new FileWriter(PATH_BASICO + nomeArquivo + EXTENSAO));
+
+		String linha = "*************** DEPOSITO ***************";
+		buffWrite.append(linha + "\n");
+
+		linha = "CPF: " + conta.getCpf();
+		buffWrite.append(linha + "\n");
+
+		linha = "Agência: " + conta.getNumeroAgencia();
+		buffWrite.append(linha + "\n");
+
+		linha = "Conta: " + conta.getNumeroConta();
+		buffWrite.append(linha + "\n");
+
+		linha = "Valor: R$" + valorDeposito;
+		buffWrite.append(linha + "\n");
+
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		Date date = new Date();
+		linha = "Operação realizada em: " + simpleDateFormat.format(date);
+		buffWrite.append(linha + "\n");
+
+		linha = "*************** FIM DO DEPOSITO ***************";
+		buffWrite.append(linha + "\n\n");
+
+		buffWrite.close();
+
+	}
+
+	public static void comprovanteTransferencia(Conta conta, Conta destino, double valorTransferencia)
+			throws IOException {
+
+		String nomeArquivo = conta.getCpf() + "_" + conta.getNumeroAgencia() + "_" + conta.getNumeroConta()
+				+ "_conta_origem";
+
+		BufferedWriter buffWrite = new BufferedWriter(new FileWriter(PATH_BASICO + nomeArquivo + EXTENSAO));
+
+		String linha = "*************** CONTA DESTINO ***************";
+		buffWrite.append(linha + "\n");
+		linha = "CPF: " + destino.getCpf();
+		buffWrite.append(linha + "\n");
+
+		linha = "Agência: " + destino.getNumeroAgencia();
+		buffWrite.append(linha + "\n");
+
+		linha = "Conta: " + destino.getNumeroConta();
+		buffWrite.append(linha + "\n");
+
+		linha = "Valor: R$" + valorTransferencia;
+		buffWrite.append(linha + "\n");
+
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		Date date = new Date();
+		linha = "Operação realizada em: " + simpleDateFormat.format(date);
+		buffWrite.append(linha + "\n");
+
+		linha = "*************** FIM DA TRANSFERENCIA ***************";
+		buffWrite.append(linha + "\n\n");
+
+		buffWrite.close();
+
+	}
+
 	public static void relatorioContasPorAgencia(Conta conta) throws IOException {
 
 		String nomeArquivo = conta.getCpf() + "_" + conta.getNumeroAgencia() + "_" + conta.getNumeroConta()
 				+ "_contas_por_agencia";
+
+		BufferedWriter buffWrite = new BufferedWriter(new FileWriter(PATH_BASICO + nomeArquivo + EXTENSAO));
+
+		int totalContas = 0;
+
+		String linha = "********************** INFORMAÇÕES DO RESPONSÁVEL **********************";
+		buffWrite.append(linha + "\n\n");
+
+		linha = "CPF: " + conta.getCpf();
+		buffWrite.append(linha + "\n");
+
+		linha = "Agência : " + conta.getNumeroAgencia();
+		buffWrite.append(linha + "\n");
+
+		linha = "*******************************************************";
+		buffWrite.append(linha + "\n\n");
+
+		linha = "*************** TOTAL DE CONTAS NA MESMA AGÊNCIA ***************";
+		buffWrite.append(linha + "\n\n");
+
+		for (String cpf : Conta.mapaContas.keySet()) {
+			if (Conta.mapaContas.get(cpf).getNumeroAgencia().equals(conta.getNumeroAgencia())) {
+
+				linha = "CPF: " + Conta.mapaContas.get(cpf).getCpf();
+				buffWrite.append(linha + "\n");
+
+				linha = "Agência : " + Conta.mapaContas.get(cpf).getNumeroAgencia();
+				buffWrite.append(linha + "\n");
+
+				linha = "Conta: " + Conta.mapaContas.get(cpf).getNumeroConta();
+				buffWrite.append(linha + "\n");
+
+				totalContas++;
+
+				linha = "**********************************";
+				buffWrite.append(linha + "\n");
+			}
+
+		}
+
+		linha = "Total de contas: " + totalContas;
+		buffWrite.append(linha + "\n");
+
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		Date date = new Date();
+		linha = "Operação realizada em: " + simpleDateFormat.format(date);
+		buffWrite.append(linha + "\n");
+
+		linha = "************************************************************************";
+		buffWrite.append(linha + "\n\n");
+
+		buffWrite.close();
+
+	}
+
+	public static void relatorioContasGerenciadas(Conta conta) throws IOException {
+
+		String nomeArquivo = conta.getCpf() + "_" + conta.getNumeroAgencia() + "_" + conta.getNumeroConta()
+				+ "_contas_gerenciadas";
 
 		BufferedWriter buffWrite = new BufferedWriter(new FileWriter(PATH_BASICO + nomeArquivo + EXTENSAO));
 

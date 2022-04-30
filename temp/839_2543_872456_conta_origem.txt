@@ -1,0 +1,8 @@
+*************** CONTA DESTINO ***************
+CPF: 283
+Agência: 2617
+Conta: 163749
+Valor: R$350.0
+Operação realizada em: 29/04/2022 19:33:18
+*************** FIM DA TRANSFERENCIA ***************
+

@@ -17,6 +17,7 @@ public class Principal {
 	public String inputSenha;
 	public static Scanner sc = new Scanner(System.in);
 	MenuPrincipal menuPrincipal = new MenuPrincipal();
+	
 
 	public void menuInterativo() throws ContaException, NullPointerException, InputMismatchException {
 		try {
