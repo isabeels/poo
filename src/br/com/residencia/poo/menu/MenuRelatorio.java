@@ -59,8 +59,9 @@ public class MenuRelatorio {
 				System.out.printf("O valor cobrado para cada tranferência é de R$%.2f%n", Taxas.TRANSFERENCIA);
 				System.out.println(
 						"Total de transferências realizadas: " + ((ContaCorrente) conta).getTotalTransferencias());
-
-				LeituraEscrita.relatorioTributacaoContaCorrente(conta);
+				Integer totalDep = ((ContaCorrente) conta).getTotalSaques();
+				Integer totalSaq =  ((ContaCorrente) conta).getTotalDepositos();
+				LeituraEscrita.relatorioTributacaoContaCorrente(conta, totalDep, totalSaq);
 
 			} else {
 
