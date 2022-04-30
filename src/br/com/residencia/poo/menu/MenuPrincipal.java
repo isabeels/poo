@@ -82,7 +82,7 @@ public class MenuPrincipal {
 			case 4:
 				principal.imprimeLinhaHorizontal();
 				System.out.printf("O valor do seu saldo é R$ %.2f\n", conta.getSaldo());
-
+				break;
 			case 5:
 				switch (usuario.getTipoUsuario()) {
 				case "PRESIDENTE":
@@ -98,7 +98,8 @@ public class MenuPrincipal {
 					LeituraEscrita.relatorioContasPorAgencia(conta);
 					System.out.println("Seu arquivo de relatório foi gerado com as informações das Contas das Agências");
 					break;
-				}
+				} 
+				break;
 				
 			case 6:
 				principal.imprimeLinhaHorizontal();
