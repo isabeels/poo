@@ -33,9 +33,14 @@ public class MenuRelatorio {
 		} else {
 			System.out.println("[1]\tSimulacao de rendimento");
 		}
-		if (idUsuario >= 2) {
-			System.out.println("[2]\tNúmero de contas da sua agencia");
+		if (idUsuario == 2) {
+			System.out.println("[2]\tRelatório de contas gerenciadas");
+		} else if (idUsuario == 3) {
+			System.out.println("[2]\tRelatório de todas as contas e agências");
+		} else if (idUsuario == 4){
+			System.out.println("[2]\tRelatório com o total de capital do Banco");
 		}
+		
 		System.out.println("[3]\tVoltar");
 		imprimeLinhaHorizontal();
 
@@ -62,7 +67,7 @@ public class MenuRelatorio {
 				Integer totalDep = ((ContaCorrente) conta).getTotalSaques();
 				Integer totalSaq =  ((ContaCorrente) conta).getTotalDepositos();
 				LeituraEscrita.relatorioTributacaoContaCorrente(conta, totalDep, totalSaq);
-
+				System.out.println("\nSeu arquivo foi gerado com sucesso!");
 			} else {
 
 				int inputDias;
@@ -77,7 +82,8 @@ public class MenuRelatorio {
 				((ContaPoupanca) conta).previsaoDeRendimento(inputValor, inputDias);
 
 				LeituraEscrita.relatorioRendimentoPoupanca(conta, inputValor, inputDias);
-
+				
+				System.out.println("\nSeu arquivo foi gerado com sucesso!");
 			}
 
 			selecaoRelatorio(conta, usuario);
@@ -85,23 +91,27 @@ public class MenuRelatorio {
 			break;
 
 		case 2:
-
-			int total = 0;
-			for (String cpf : Conta.mapaContas.keySet()) {
-				if (Conta.mapaContas.get(cpf).getNumeroAgencia().equals(conta.getNumeroAgencia())) {
-
-					System.out.println(Conta.mapaContas.get(cpf));
-					total++;
-				}
-
+			if (idUsuario == 2) {
+				LeituraEscrita.relatorioContasGerenciadas(conta);
+				System.out.println("\nSeu arquivo foi gerado com sucesso!");
 			}
-			System.out.println("Total de contas: " + total);
-
-			LeituraEscrita.relatorioContasPorAgencia(conta);
-
+		 else if (idUsuario == 3){
+			 for (String cpf : Conta.mapaContas.keySet()) {
+			System.out.println(Conta.mapaContas.get(cpf));
+			 }
+			 
+			 LeituraEscrita.relatorioContasPorAgencia(conta);
+			 System.out.println("\nSeu arquivo foi gerado com sucesso!");
+		} else {
+				LeituraEscrita.relatorioTotalCapital(conta, Conta.mapaContas);
+				System.out.println("\nSeu arquivo foi gerado com sucesso!");
+			}
+			
 			selecaoRelatorio(conta, usuario);
 
 			break;
+			
+		
 
 		case 3:
 

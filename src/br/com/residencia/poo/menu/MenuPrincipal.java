@@ -27,8 +27,7 @@ public class MenuPrincipal {
 			System.out.println("[3]\tTRANSFERÊNCIA");
 			System.out.println("[4]\tSALDO");
 			System.out.println("[5]\tRELATÓRIO");
-			System.out.println("[6]\tSIMULAÇÃO DE RENDIMENTO DA POUPANÇA");
-			System.out.println("[7]\tSAIR");
+			System.out.println("[6]\tSAIR");
 			principal.imprimeLinhaHorizontal();
 
 			System.out.print("Digite a opção desejada: ");
@@ -83,38 +82,13 @@ public class MenuPrincipal {
 				principal.imprimeLinhaHorizontal();
 				System.out.printf("O valor do seu saldo é R$ %.2f\n", conta.getSaldo());
 				break;
+			
 			case 5:
-				switch (usuario.getTipoUsuario()) {
-				case "PRESIDENTE":
-					LeituraEscrita.relatorioTotalCapital(conta, Conta.mapaContas);
-					System.out.println("Seu arquivo de relatório foi gerado com as informações do capital do Banco");
-					break;
-				case "DIRETOR":
-					LeituraEscrita.relatorioContasPorAgencia(conta);
-					System.out
-							.println("Seu arquivo de relatório foi gerado com as informações das Contas das Agências");
-					break;
-				case "GERENTE":
-					LeituraEscrita.relatorioContasPorAgencia(conta);
-					System.out.println("Seu arquivo de relatório foi gerado com as informações das Contas das Agências");
-					break;
-				} 
-				break;
-				
-			case 6:
 				principal.imprimeLinhaHorizontal();
-				System.out.print("Digite o valor que deseja simular: ");
-				inputValor = Double.parseDouble(Principal.sc.next());
-				
-				System.out.print("Digite a quantidade de dias que deseja simular: ");
-				Integer inputDias = Integer.parseInt(Principal.sc.next());
-
-				LeituraEscrita.relatorioRendimentoPoupanca(conta, inputValor, inputDias);
-				System.out.println("Seu arquivo de simulação de rendimentos da poupança foi gerado com sucesso!");
-				
+				MenuRelatorio.selecaoRelatorio(conta, usuario);
 				break;
 
-			case 7:
+			case 6:
 				principal.limpaTela();
 				principal.menuInterativo();
 				break;

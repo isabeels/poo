@@ -196,7 +196,7 @@ public class LeituraEscrita {
 	public static void relatorioContasPorAgencia(Conta conta) throws IOException {
 
 		String nomeArquivo = conta.getCpf() + "_" + conta.getNumeroAgencia() + "_" + conta.getNumeroConta()
-				+ "_contas_por_agencia";
+				+ "_contas_todas_agencias";
 
 		BufferedWriter buffWrite = new BufferedWriter(new FileWriter(PATH_BASICO + nomeArquivo + EXTENSAO));
 
@@ -214,11 +214,12 @@ public class LeituraEscrita {
 		linha = "*******************************************************";
 		buffWrite.append(linha + "\n\n");
 
-		linha = "*************** TOTAL DE CONTAS NA MESMA AGÊNCIA ***************";
+		linha = "*************** TOTAL DE CONTAS EM TODAS AS AGÊNCIAS ***************";
 		buffWrite.append(linha + "\n\n");
 
 		for (String cpf : Conta.mapaContas.keySet()) {
-			if (Conta.mapaContas.get(cpf).getNumeroAgencia().equals(conta.getNumeroAgencia())) {
+			linha = "CPF: " + Conta.mapaContas.get(cpf).getCpf();
+			buffWrite.append(linha + "\n");
 
 				linha = "CPF: " + Conta.mapaContas.get(cpf).getCpf();
 				buffWrite.append(linha + "\n");
@@ -234,8 +235,6 @@ public class LeituraEscrita {
 				linha = "**********************************";
 				buffWrite.append(linha + "\n");
 			}
-
-		}
 
 		linha = "Total de contas: " + totalContas;
 		buffWrite.append(linha + "\n");
